@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>צמרת | תוצאות ועדויות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2F6655;
+    --green-light:#DDEBE3;
+    --yellow:#F2C84B;
+    --ink:#1F2925;
+    --ink-soft:#59635F;
+    --bg:#FAF9F5;
+    --card:#FFFFFF;
+    --radius:14px;
+    --shadow:0 4px 16px rgba(31,41,37,.06);
+    --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    font-family:'Heebo', Tahoma, Arial, sans-serif;
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px;}
+  .wrap-narrow{max-width:900px;margin:0 auto;padding:0 24px;}
+
+  section{padding:80px 0;}
+  @media (max-width:720px){
+    section{padding:56px 0;}
+  }
+
+  .section-title{
+    text-align:center;
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .section-sub{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:18px;
+    font-weight:400;
+    line-height:1.6;
+    max-width:640px;
+    margin:0 auto 44px;
+  }
+  @media (max-width:720px){
+    .section-title{font-size:27px;}
+    .section-sub{font-size:16px;margin-bottom:36px;}
+  }
+
+  /* HERO */
+  header.hero{
+    background:linear-gradient(180deg, var(--green-light) 0%, var(--bg) 100%);
+    padding:64px 24px 48px;
+    text-align:center;
+  }
+  header.hero .brand{
+    display:inline-block;
+    background:var(--green);
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+    padding:8px 20px;
+    border-radius:999px;
+    margin-bottom:38px;
+  }
+  header.hero h1{
+    font-size:46px;
+    font-weight:700;
+    line-height:1.22;
+    max-width:760px;
+    margin:0 auto 24px;
+  }
+  header.hero .problem{
+    font-size:22px;
+    font-weight:500;
+    color:var(--ink-soft);
+    max-width:600px;
+    margin:0 auto 34px;
+    line-height:1.6;
+  }
+  header.hero .solution{
+    font-size:24px;
+    font-weight:500;
+    max-width:640px;
+    margin:0 auto;
+    line-height:1.6;
+  }
+  header.hero .solution b{
+    color:var(--green);
+    font-weight:700;
+  }
+  @media (max-width:720px){
+    header.hero{padding:48px 20px 36px;}
+    header.hero h1{font-size:31px;margin-bottom:20px;}
+    header.hero .problem{font-size:17px;margin-bottom:26px;}
+    header.hero .solution{font-size:19px;}
+  }
+  .scroll-cue{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+  }
+  .scroll-cue svg{
+    animation:bounce 1.8s infinite;
+    opacity:.55;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(7px);}
+  }
+
+  /* MASONRY QUOTES */
+  .masonry{
+    column-count:2;
+    column-gap:22px;
+  }
+  @media (max-width:720px){
+    .masonry{column-count:1;}
+  }
+  .masonry img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
+    break-inside:avoid;
+  }
+
+  /* RESULTS */
+  .results-wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  .results-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-bottom:24px;
+  }
+  @media (max-width:720px){
+    .results-row{grid-template-columns:1fr;}
+  }
+  .result-item{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .result-item img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  .result-caption{
+    text-align:center;
+    font-size:19px;
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .results-single{
+    max-width:640px;
+    margin:0 auto 24px;
+  }
+
+  /* VIDEO */
+  .video-frame{
+    max-width:880px;
+    margin:0 auto;
+    aspect-ratio:16/9;
+    background:var(--green-light);
+    border-radius:var(--radius);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--ink-soft);
+  }
+  .video-frame .placeholder{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+  }
+  .video-frame .icon{
+    width:60px;height:60px;
+    border-radius:50%;
+    background:var(--green);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;
+  }
+
+  /* CTA */
+  section.cta{
+    background:var(--green);
+    color:#fff;
+    text-align:center;
+    padding:80px 24px;
+  }
+  section.cta h2{
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:16px;
+    max-width:680px;
+    margin-inline:auto;
+  }
+  section.cta p{
+    font-size:18px;
+    max-width:560px;
+    margin:0 auto 36px;
+    opacity:.95;
+    line-height:1.6;
+  }
+  .wa-btn{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--ink);
+    font-weight:700;
+    font-size:18px;
+    padding:18px 38px;
+    border-radius:999px;
+    text-decoration:none;
+  }
+  @media (max-width:720px){
+    section.cta h2{font-size:26px;}
+    section.cta p{font-size:16px;}
+  }
+
+  footer{
+    text-align:center;
+    padding:28px;
+    color:var(--ink-soft);
+    font-size:14px;
+    background:var(--bg);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="brand">צמרת — שיווק דיגיטלי לעסקים עם שליחות</span>
+  <h1>יש לכם עסק עם שליחות,<br>ואתם יודעים שאתם טובים במה שאתם עושים.</h1>
+  <p class="problem">אבל במקום להרגיש שהעסק גדל ומתבסס,<br>אתם עדיין דואגים מאיפה יגיעו הלקוחות הבאים?</p>
+  <p class="solution">
+    קמפיין ממומן הוא ה־דרך<br>
+    לבנות <b>תנועה קבועה וזורמת של פניות איכותיות</b>,<br>
+    ליצור <b>ביטחון ויציבות בעסק</b>,<br>
+    ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>.
+  </p>
+  <div class="scroll-cue">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F6655" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">רוצים לראות איך זה נראה בפועל?</h2>
+    <p class="section-sub">הנה כמה מההצלחות שהלקוחות שלי משתפים תוך כדי העבודה המשותפת.</p>
+    <div class="masonry">
+      <img src="images/testimonial1.jpg" alt="עדות לקוח">
+      <img src="images/testimonial7.png" alt="עדות לקוח">
+      <img src="images/testimonial4.jpg" alt="עדות לקוח">
+      <img src="images/quote-rinat2.png" alt="עדות רינת">
+      <img src="images/quote-amir.png" alt="עדות אמיר">
+      <img src="images/quote-noa.png" alt="עדות נועה">
+      <img src="images/testimonial3.jpg" alt="עדות לקוח">
+      <img src="images/quote-rinat3.png" alt="עדות רינת">
+      <img src="images/testimonial6.jpeg" alt="עדות לקוח">
+      <img src="images/testimonial2.jpg" alt="עדות לקוח">
+      <img src="images/quote-rinat1.png" alt="עדות רינת">
+      <img src="images/testimonial5.jpeg" alt="עדות לקוח">
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--green-light);">
+  <div class="results-wrap">
+    <h2 class="section-title">ומה רואים בקמפיינים עצמם?</h2>
+    <p class="section-sub">הצצה לנתונים אמיתיים מתוך מערכת הפרסום של Meta.</p>
+
+    <div class="results-row">
+      <div class="result-item"><img src="images/case-yaya.jpg" alt="תוצאות קמפיין - יאיא"></div>
+      <div class="result-item"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי"></div>
+    </div>
+
+    <div class="results-row">
+      <div>
+        <div class="result-item"><img src="images/results-weekly-may2025.png" alt="תוצאות קמפיין - 7 ימים"></div>
+      </div>
+      <div>
+        <div class="result-item"><img src="images/results-mar-may2025.png" alt="תוצאות קמפיין - כחודשיים"></div>
+      </div>
+    </div>
+
+    <div class="results-single">
+      <p class="result-caption">קמפיין וובינר</p>
+      <div class="result-item"><img src="images/results-2019-2022.png" alt="תוצאות קמפיין וובינר - כ-3 שנים"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap-narrow">
+    <h2 class="section-title">האם קמפיין ממומן מתאים גם לעסק שלכם?</h2>
+    <p class="section-sub">הכנתי סרטון שיעזור לכם להבין למי קמפיין ממומן מתאים, מה חשוב שיהיה בעסק לפני שמתחילים, ואיך הוא יכול לעזור לייצר תנועה קבועה של פניות בלי להיות עסוקים כל היום בשיווק.</p>
+    <div class="video-frame">
+      <div class="placeholder">
+        <div class="icon">▶</div>
+        <div>הסרטון יתעדכן כאן בקרוב</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>רוצים ליצור תנועה קבועה יותר של פניות בעסק?</h2>
+  <p>כתבו לי "שיחה" בוואטסאפ ונקבע שיחה קצרה כדי להכיר את העסק ולבדוק התאמה הדדית.</p>
+  <a class="wa-btn" href="https://wa.me/972548080089?text=%D7%A9%D7%99%D7%97%D7%94" target="_blank">לשיחת התאמה בוואטסאפ</a>
+</section>
+
+<footer>צמרת · קמפיינים חכמים לעסקים עם ערך אמיתי</footer>
+
+</body>
+</html>
