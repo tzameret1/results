@@ -65,16 +65,16 @@
   }
   .testi-sub{
     text-align:center;
-    font-size:35px;
+    font-size:32px;
     font-weight:700;
-    color:var(--ink);
+    color:var(--green);
     line-height:1.25;
     max-width:820px;
     margin:0 auto 30px;
   }
   @media (max-width:720px){
     .testi-title{font-size:20px;}
-    .testi-sub{font-size:26px;margin-bottom:24px;}
+    .testi-sub{font-size:24px;margin-bottom:24px;}
   }
 
   /* HERO — fully fluid via clamp(), no fixed heights, aware of short viewports */
@@ -124,6 +124,13 @@
     font-weight:400;
     line-height:1.2;
     margin-bottom:clamp(2px,0.6vh,6px);
+    text-wrap:balance;
+  }
+  .u-black{
+    white-space:nowrap;
+    text-decoration:none;
+    border-bottom:2px solid #000;
+    padding-bottom:1px;
   }
   .solution-panel .g1 .line:last-child{margin-bottom:0;}
   .solution-panel .g2 .line:last-child{margin-bottom:0;}
@@ -382,13 +389,13 @@
 
   <div class="solution-panel">
     <div class="g1">
-      <div class="line">כאן תוכלו ליצור <b>זרם של פניות איכותיות לעסק</b> כבר בזמן הקרוב,</div>
+      <div class="line">כאן תוכלו ליצור <b>זרם של פניות איכותיות לעסק</b> <span class="u-black">כבר בזמן הקרוב</span>,</div>
       <div class="line">לבנות <b>ביטחון ויציבות בעסק</b>,</div>
       <div class="line">ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b></div>
     </div>
     <div class="panel-gap"></div>
     <div class="g2">
-      <div class="line"><b>בלי להשקיע שעות בשיווק היומיומי</b>,</div>
+      <div class="line"><b><span class="u-black">בלי</span> להשקיע שעות בשיווק היומיומי</b>,</div>
       <div class="line">באמצעות קמפיין ממומן חכם</div>
     </div>
   </div>
