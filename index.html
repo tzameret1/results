@@ -8,374 +8,358 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --green:#2F6655;
-    --green-light:#DDEBE3;
-    --solution-bg:#EAF3ED;
-    --yellow:#F2C84B;
-    --ink:#1F2925;
-    --ink-soft:#59635F;
-    --bg:#FAF9F5;
-    --card:#FFFFFF;
-    --radius:14px;
-    --shadow:0 4px 16px rgba(31,41,37,.06);
-    --max:1180px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{
-    background:var(--bg);
-    font-family:'Heebo', Tahoma, Arial, sans-serif;
-    color:var(--ink);
-    line-height:1.6;
-  }
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px;}
-  .wrap-narrow{max-width:900px;margin:0 auto;padding:0 24px;}
+/* ============================================================
+   DESIGN SYSTEM — reusable across landing pages
+   Change a token here and everything built from it updates.
+   ============================================================ */
+:root{
+  /* — Color — */
+  --green:#2F6655;         /* primary brand */
+  --green-light:#DDEBE3;   /* soft section background */
+  --solution-bg:#EAF3ED;   /* panel background */
+  --yellow:#F2C84B;        /* accent / CTA only */
+  --ink:#1F2925;           /* primary text */
+  --ink-soft:#59635F;      /* secondary text */
+  --bg:#FAF9F5;            /* page background */
+  --card:#FFFFFF;          /* card background */
 
-  section{padding:80px 0;}
-  @media (max-width:720px){
-    section{padding:56px 0;}
-  }
+  /* — Spacing scale (4px base) — everything else references this */
+  --sp-1:4px;   --sp-2:8px;   --sp-3:12px;  --sp-4:16px;
+  --sp-5:20px;  --sp-6:24px;  --sp-8:32px;  --sp-10:40px;
+  --sp-12:48px; --sp-16:64px; --sp-20:80px;
 
-  .section-title{
-    text-align:center;
-    font-size:34px;
-    font-weight:700;
-    margin-bottom:14px;
-  }
-  .section-sub{
-    text-align:center;
-    color:var(--ink-soft);
-    font-size:18px;
-    font-weight:400;
-    line-height:1.6;
-    max-width:640px;
-    margin:0 auto 44px;
-  }
-  @media (max-width:720px){
-    .section-title{font-size:27px;}
-    .section-sub{font-size:16px;margin-bottom:36px;}
-  }
+  /* — Type scale — fluid (mobile → desktop), one variable per role.
+     Everything on the page pulls from this list; nothing hardcodes
+     a font-size outside of it. */
+  --text-xs:   clamp(13px, 12px + 0.2vw, 14px);   /* micro labels */
+  --text-sm:   clamp(15px, 14px + 0.3vw, 16px);   /* small labels, dots */
+  --text-base: clamp(16px, 15px + 0.3vw, 18px);   /* body / subcopy */
+  --text-lg:   clamp(18px, 16px + 0.6vw, 20px);   /* eyebrow titles */
+  --text-xl:   clamp(20px, 17px + 1vw, 28px);     /* hero problem, small H2 */
+  --text-2xl:  clamp(22px, 18px + 1.4vw, 32px);   /* emphasized subheads */
+  --text-3xl:  clamp(26px, 22px + 1.6vw, 34px);   /* section H2 */
+  --text-4xl:  clamp(21px, 18.4px + 0.92vw, 38px);/* hero solution panel (dominant) */
+  --text-btn:  18px;                              /* buttons: fixed, not fluid */
 
-  .testi-title{
-    text-align:center;
-    font-size:28px;
-    font-weight:400;
-    color:var(--green);
-    margin-bottom:2px;
-  }
-  .testi-sub{
-    text-align:center;
-    font-size:32px;
-    font-weight:700;
-    color:var(--green);
-    line-height:1.25;
-    max-width:820px;
-    margin:0 auto 30px;
-  }
-  @media (max-width:720px){
-    .testi-title{font-size:20px;}
-    .testi-sub{font-size:24px;margin-bottom:24px;}
-  }
+  /* — Shape / elevation — */
+  --radius-sm:10px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --shadow:0 4px 16px rgba(31,41,37,.06);
 
-  /* HERO — fully fluid via clamp(), no fixed heights, aware of short viewports */
-  header.hero{
-    background:var(--green);
-    padding:clamp(18px,4vh,40px) 24px clamp(24px,5vh,48px);
-    text-align:center;
-    color:#fff;
-  }
+  /* — Layout — */
+  --max:1180px;
+  --max-narrow:900px;
 
-  /* Problem line — small, secondary to the solution panel.
-     Target: 17-20px mobile / 23-26px laptop / 27-30px large desktop */
-  .hero-problem{
-    max-width:640px;
-    margin:0 auto clamp(14px,2.5vh,26px);
-    font-size:clamp(17px,15.2px + 0.72vw,30px);
-    font-weight:400;
-    line-height:1.45;
-    color:rgba(255,255,255,.92);
-  }
-  .hero-problem .hl-yellow{
-    color:var(--yellow);
-    font-weight:700;
-  }
-  .hero-problem .hl-underline{
-    font-weight:400;
-    text-decoration:underline;
-    text-decoration-color:#fff;
-    text-decoration-thickness:2px;
-    text-underline-offset:3px;
-  }
+  /* — Frame ratios (Canva-style: one ratio per content type, so every
+     card in the same row is identical — this is what keeps carousels
+     and grids level instead of leaving ragged gaps) — */
+  --frame-testi:4/3;      /* every testimonial screenshot, featured or gallery */
+  --frame-result-lg:16/9; /* the 2 featured Meta results */
+  --frame-result-sm:21/9; /* the 3 secondary Meta results (wide Ads Manager tables) */
+}
 
-  /* SOLUTION PANEL — dominant typographic element of the hero.
-     Target: 21-24px mobile / 28-32px laptop / 34-38px large desktop */
-  .solution-panel{
-    background:var(--solution-bg);
-    color:var(--ink);
-    border-radius:20px;
-    padding:clamp(16px,3vh,32px) clamp(16px,3.5vw,34px);
-    max-width:820px;
-    margin:0 auto;
-    text-align:center;
-  }
-  .solution-panel .g1 .line,
-  .solution-panel .g2 .line{
-    font-size:clamp(21px,18.4px + 0.92vw,38px);
-    font-weight:400;
-    line-height:1.2;
-    margin-bottom:clamp(2px,0.6vh,6px);
-    text-wrap:balance;
-  }
-  .u-black{
-    white-space:nowrap;
-    text-decoration:none;
-    border-bottom:2px solid #000;
-    padding-bottom:1px;
-  }
-  .solution-panel .g1 .line:last-child{margin-bottom:0;}
-  .solution-panel .g2 .line:last-child{margin-bottom:0;}
-  .solution-panel .panel-gap{height:clamp(10px,2vh,20px);}
-  .solution-panel b{
-    font-weight:700;
-    color:var(--green);
-  }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);
+  font-family:'Heebo', Tahoma, Arial, sans-serif;
+  color:var(--ink);
+  line-height:1.6;
+}
 
-  /* Extra-short laptop viewports (e.g. 1366x768): tighten further */
-  @media (max-height:800px) and (min-width:721px){
-    header.hero{padding:14px 24px 20px;}
-    .hero-problem{margin-bottom:12px;}
-    .solution-panel{padding:14px 24px;}
-    .solution-panel .panel-gap{height:8px;}
-  }
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--sp-6);}
+.wrap-narrow{max-width:var(--max-narrow);margin:0 auto;padding:0 var(--sp-6);}
 
-  /* TESTIMONIALS */
-  .testi-grid.featured-2{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-    max-width:900px;
-    margin:0 auto;
-    align-items:start;
-  }
-  @media (max-width:720px){
-    .testi-grid.featured-2{grid-template-columns:1fr;max-width:440px;}
-  }
+section{padding:var(--sp-20) 0;}
+@media (max-width:720px){
+  section{padding:var(--sp-16) 0;}
+}
 
-  /* Canva-style frames: the frame sets the card size, the image fits inside
-     without cropping (object-fit:contain). Per-image --ox/--oy custom
-     properties allow fine-tuning position if ever needed. */
-  .frame{
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    background:var(--card);
-  }
-  .frame img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:var(--ox,center) var(--oy,center);
-  }
-  .frame-testi-lg{aspect-ratio:4/3;}
-  .frame-testi-sm{aspect-ratio:4/3;}
-  .frame-testi-wide{aspect-ratio:2.3/1;}
-  .frame-testi-tall{aspect-ratio:3/5;}
+/* ============================================================
+   TEXT PRIMITIVES — every heading/subhead in the page uses one
+   of these four classes. Resize a role once, it updates everywhere.
+   ============================================================ */
+.h-section{           /* big section title, e.g. "ומה רואים בקמפיינים עצמם?" */
+  text-align:center;
+  font-size:var(--text-3xl);
+  font-weight:700;
+  margin-bottom:var(--sp-3);
+}
+.h-eyebrow{            /* small label above a dominant subhead */
+  text-align:center;
+  font-size:var(--text-xl);
+  font-weight:400;
+  color:var(--green);
+  margin-bottom:var(--sp-1);
+}
+.h-dominant{            /* the bold, larger, green "real" headline of a section */
+  text-align:center;
+  font-size:var(--text-2xl);
+  font-weight:700;
+  color:var(--green);
+  line-height:1.25;
+  max-width:820px;
+  margin:0 auto var(--sp-8);
+}
+.copy{                  /* body copy under a heading */
+  text-align:center;
+  color:var(--ink-soft);
+  font-size:var(--text-base);
+  line-height:1.6;
+  max-width:640px;
+  margin:0 auto var(--sp-10);
+}
+.label{                 /* small standalone label, e.g. "עוד סיפורי הצלחה" */
+  text-align:center;
+  font-size:var(--text-2xl);
+  font-weight:700;
+  color:var(--green);
+  margin:var(--sp-10) 0 var(--sp-4);
+}
+.caption{                /* tiny caption above/below a media card */
+  text-align:center;
+  font-size:var(--text-base);
+  font-weight:600;
+  margin-bottom:var(--sp-2);
+}
 
-  .more-title{
-    text-align:center;
-    font-size:24px;
-    font-weight:700;
-    color:var(--green);
-    margin:44px 0 18px;
-  }
-  @media (max-width:720px){
-    .more-title{font-size:20px;margin:32px 0 16px;}
-  }
+/* ============================================================
+   HERO
+   ============================================================ */
+header.hero{
+  background:var(--green);
+  padding:clamp(18px,4vh,40px) var(--sp-6) clamp(24px,5vh,48px);
+  text-align:center;
+  color:#fff;
+}
+.hero-problem{
+  max-width:640px;
+  margin:0 auto clamp(14px,2.5vh,26px);
+  font-size:var(--text-xl);
+  font-weight:400;
+  line-height:1.45;
+  color:rgba(255,255,255,.92);
+}
+.hero-problem .hl-yellow{color:var(--yellow); font-weight:700;}
+.hero-problem .hl-underline{
+  font-weight:400;
+  text-decoration:underline;
+  text-decoration-color:#fff;
+  text-decoration-thickness:2px;
+  text-underline-offset:3px;
+}
 
-  /* SECONDARY TESTIMONIAL GALLERY (smaller, drag-scroll) */
-  .gallery-scroll{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    padding:4px 4px 14px;
-    scrollbar-width:none;
-    cursor:grab;
-    user-select:none;
-  }
-  .gallery-scroll.dragging{cursor:grabbing;}
-  .gallery-scroll::-webkit-scrollbar{display:none;}
-  .gallery-scroll .g-item{
-    flex:0 0 31%;
-    scroll-snap-align:start;
-  }
-  @media (max-width:1000px){
-    .gallery-scroll .g-item{flex:0 0 48%;}
-  }
-  @media (max-width:720px){
-    .gallery-scroll .g-item{flex:0 0 85%;}
-  }
+.solution-panel{
+  background:var(--solution-bg);
+  color:var(--ink);
+  border-radius:var(--radius-lg);
+  padding:clamp(16px,3vh,32px) clamp(16px,3.5vw,34px);
+  max-width:820px;
+  margin:0 auto;
+  text-align:center;
+}
+.solution-panel .line{
+  font-size:var(--text-4xl);
+  font-weight:400;
+  line-height:1.2;
+  margin-bottom:clamp(2px,0.6vh,6px);
+  text-wrap:balance;
+}
+.solution-panel .g1 .line:last-child,
+.solution-panel .g2 .line:last-child{margin-bottom:0;}
+.solution-panel .panel-gap{height:clamp(10px,2vh,20px);}
+.solution-panel b{font-weight:700; color:var(--green);}
 
-  /* RESULTS */
-  .results-wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
-  .results-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-  }
-  @media (max-width:720px){
-    .results-row{grid-template-columns:1fr;}
-  }
-  .frame-result-featured{aspect-ratio:16/9;}
-  .frame-result-wide{aspect-ratio:2.5/1;}
+.u-black{
+  white-space:nowrap;
+  text-decoration:none;
+  border-bottom:2px solid #000;
+  padding-bottom:1px;
+}
 
-  .result-caption{
-    text-align:center;
-    font-size:19px;
-    font-weight:600;
-    margin-bottom:10px;
-  }
+@media (max-height:800px) and (min-width:721px){
+  header.hero{padding:14px var(--sp-6) 20px;}
+  .hero-problem{margin-bottom:12px;}
+  .solution-panel{padding:14px 24px;}
+  .solution-panel .panel-gap{height:8px;}
+}
 
-  .sub-heading{
-    text-align:center;
-    font-size:20px;
-    font-weight:600;
-    margin:48px 0 18px;
-  }
+/* ============================================================
+   MEDIA FRAME COMPONENT
+   One component, used everywhere a screenshot appears. The frame
+   is a fixed-ratio box (--frame-testi / --frame-result-lg / -sm);
+   the image always fills it (object-fit:cover) so every card in a
+   row is the exact same height — no ragged gaps, no orphan
+   whitespace. Per-image --ox/--oy let you nudge the crop later
+   without touching layout.
+   ============================================================ */
+.frame{
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  background:var(--card);
+}
+.frame img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:var(--ox,center) var(--oy,center);
+}
+.frame-testi{aspect-ratio:var(--frame-testi);}
+.frame-result-lg{aspect-ratio:var(--frame-result-lg);}
+.frame-result-sm{aspect-ratio:var(--frame-result-sm);}
 
-  /* CAROUSEL */
-  .carousel-wrap{
-    position:relative;
-    max-width:1080px;
-    margin:0 auto;
-  }
-  .carousel{
-    display:flex;
-    gap:20px;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    padding:4px 4px 16px;
-    scrollbar-width:none;
-  }
-  .carousel::-webkit-scrollbar{display:none;}
-  .carousel .slide{
-    flex:0 0 31%;
-    scroll-snap-align:start;
-  }
-  @media (max-width:1000px){
-    .carousel .slide{flex:0 0 48%;}
-  }
-  @media (max-width:720px){
-    .carousel .slide{flex:0 0 85%;}
-  }
-  .carousel-arrow{
-    position:absolute;
-    top:45%;
-    transform:translateY(-50%);
-    width:44px;height:44px;
-    border-radius:50%;
-    background:#fff;
-    border:1px solid rgba(31,41,37,.12);
-    box-shadow:var(--shadow);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    color:var(--green);
-    z-index:2;
-  }
-  .carousel-arrow.prev{right:-10px;}
-  .carousel-arrow.next{left:-10px;}
-  @media (max-width:900px){
-    .carousel-arrow{display:none;}
-  }
-  .carousel-dots{
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    margin-top:8px;
-  }
-  .carousel-dots span{
-    width:7px;height:7px;
-    border-radius:50%;
-    background:var(--ink-soft);
-    opacity:.3;
-  }
-  .carousel-dots span.active{opacity:1;background:var(--green);}
+/* ============================================================
+   GRID — 2 featured items side by side (testimonials + results
+   both use this) ============================================================ */
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:var(--sp-5);
+}
+@media (max-width:720px){
+  .grid-2{grid-template-columns:1fr;}
+}
+.grid-2.narrow{max-width:900px; margin:0 auto;}
 
-  /* VIDEO */
-  .video-frame{
-    max-width:880px;
-    margin:0 auto;
-    aspect-ratio:16/9;
-    background:var(--green-light);
-    border-radius:var(--radius);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--ink-soft);
-  }
-  .video-frame .placeholder{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-  }
-  .video-frame .icon{
-    width:60px;height:60px;
-    border-radius:50%;
-    background:var(--green);
-    color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.4rem;
-  }
+/* ============================================================
+   SCROLLER — one horizontal drag/swipe row component, reused for
+   both the secondary testimonials and secondary results.
+   ============================================================ */
+.scroller-wrap{
+  position:relative;
+  max-width:1080px;
+  margin:0 auto;
+}
+.scroller{
+  display:flex;
+  align-items:stretch;
+  gap:var(--sp-4);
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:4px 4px var(--sp-4);
+  scrollbar-width:none;
+  cursor:grab;
+  user-select:none;
+}
+.scroller.dragging{cursor:grabbing;}
+.scroller::-webkit-scrollbar{display:none;}
+.scroller .item{
+  flex:0 0 31%;
+  scroll-snap-align:start;
+}
+@media (max-width:1000px){
+  .scroller .item{flex:0 0 48%;}
+}
+@media (max-width:720px){
+  .scroller .item{flex:0 0 85%;}
+}
 
-  /* CTA */
-  section.cta{
-    background:var(--green);
-    color:#fff;
-    text-align:center;
-    padding:80px 24px;
-  }
-  section.cta h2{
-    font-size:34px;
-    font-weight:700;
-    margin-bottom:18px;
-    max-width:680px;
-    margin-inline:auto;
-  }
-  section.cta p{
-    font-size:18px;
-    font-weight:400;
-    max-width:560px;
-    margin:0 auto 36px;
-    opacity:.85;
-    line-height:1.6;
-  }
-  .wa-btn{
-    display:inline-block;
-    background:var(--yellow);
-    color:var(--ink);
-    font-weight:700;
-    font-size:18px;
-    padding:18px 38px;
-    border-radius:999px;
-    text-decoration:none;
-  }
-  @media (max-width:720px){
-    section.cta h2{font-size:27px;}
-    section.cta p{font-size:16px;}
-  }
+.scroller-arrow{
+  position:absolute;
+  top:45%;
+  transform:translateY(-50%);
+  width:44px;height:44px;
+  border-radius:50%;
+  background:#fff;
+  border:1px solid rgba(31,41,37,.12);
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:var(--green);
+  z-index:2;
+}
+.scroller-arrow.prev{right:-10px;}
+.scroller-arrow.next{left:-10px;}
+@media (max-width:900px){
+  .scroller-arrow{display:none;}
+}
+.scroller-dots{
+  display:flex;
+  justify-content:center;
+  gap:var(--sp-2);
+  margin-top:var(--sp-2);
+}
+.scroller-dots span{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--ink-soft);
+  opacity:.3;
+}
+.scroller-dots span.active{opacity:1;background:var(--green);}
 
-  footer{
-    text-align:center;
-    padding:28px;
-    color:var(--ink-soft);
-    font-size:14px;
-    background:var(--bg);
-  }
+/* ============================================================
+   VIDEO
+   ============================================================ */
+.video-frame{
+  max-width:880px;
+  margin:0 auto;
+  aspect-ratio:16/9;
+  background:var(--green-light);
+  border-radius:var(--radius-md);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--ink-soft);
+}
+.video-frame .placeholder{display:flex; flex-direction:column; align-items:center; gap:var(--sp-3);}
+.video-frame .icon{
+  width:60px;height:60px;
+  border-radius:50%;
+  background:var(--green);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+section.cta{
+  background:var(--green);
+  color:#fff;
+  text-align:center;
+  padding:var(--sp-20) var(--sp-6);
+}
+section.cta h2{
+  font-size:var(--text-3xl);
+  font-weight:700;
+  margin-bottom:var(--sp-4);
+  max-width:680px;
+  margin-inline:auto;
+}
+section.cta p{
+  font-size:var(--text-base);
+  font-weight:400;
+  max-width:560px;
+  margin:0 auto var(--sp-8);
+  opacity:.85;
+  line-height:1.6;
+}
+.wa-btn{
+  display:inline-block;
+  background:var(--yellow);
+  color:var(--ink);
+  font-weight:700;
+  font-size:var(--text-btn);
+  padding:18px 38px;
+  border-radius:999px;
+  text-decoration:none;
+}
+
+footer{
+  text-align:center;
+  padding:var(--sp-6);
+  color:var(--ink-soft);
+  font-size:var(--text-xs);
+  background:var(--bg);
+}
 </style>
 </head>
 <body>
@@ -403,71 +387,74 @@
 
 <section style="padding-top:40px;">
   <div class="wrap">
-    <h2 class="testi-title">רוצים לראות איך זה נראה בפועל?</h2>
-    <p class="testi-sub">הנה הצלחות שלקוחות משתפים תוך כדי העבודה יחד</p>
+    <h2 class="h-eyebrow">רוצים לראות איך זה נראה בפועל?</h2>
+    <p class="h-dominant">הנה הצלחות שלקוחות משתפים תוך כדי העבודה יחד</p>
 
-    <div class="testi-grid featured-2">
-      <div class="frame frame-testi-lg"><img src="images/testimonial1.jpg" alt="עדות לקוח" loading="lazy"></div>
-      <div class="frame frame-testi-lg"><img src="images/testimonial2.jpg" alt="עדות לקוח" loading="lazy"></div>
+    <div class="grid-2 narrow">
+      <div class="frame frame-testi"><img src="images/testimonial1.jpg" alt="עדות לקוח" loading="lazy"></div>
+      <div class="frame frame-testi"><img src="images/testimonial2.jpg" alt="עדות לקוח" loading="lazy"></div>
     </div>
 
-    <p class="more-title">עוד סיפורי הצלחה</p>
+    <p class="label">עוד סיפורי הצלחה</p>
 
-    <div class="carousel-wrap">
-      <button class="carousel-arrow prev" onclick="scrollGalleryEl(testiGallery,1)" aria-label="הקודם">
+    <div class="scroller-wrap">
+      <button class="scroller-arrow prev" onclick="scrollEl(testiScroller,1)" aria-label="הקודם">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <button class="carousel-arrow next" onclick="scrollGalleryEl(testiGallery,-1)" aria-label="הבא">
+      <button class="scroller-arrow next" onclick="scrollEl(testiScroller,-1)" aria-label="הבא">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </button>
-      <div class="gallery-scroll" id="testiGallery">
-        <div class="g-item"><div class="frame frame-testi-wide"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-wide"><img src="images/testimonial6.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/testimonial3.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-wide"><img src="images/testimonial4.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/testimonial7.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-tall"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-noa.jpg" alt="עדות נועה" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-rinat1.jpg" alt="עדות רינת" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-rinat2.jpg" alt="עדות רינת" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-rinat3.jpg" alt="עדות רינת" loading="lazy"></div></div>
+      <div class="scroller" id="testiScroller">
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial6.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial3.jpg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial4.jpg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial7.jpg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy" style="--oy:20%"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-noa.jpg" alt="עדות נועה" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat1.jpg" alt="עדות רינת" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat2.jpg" alt="עדות רינת" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat3.jpg" alt="עדות רינת" loading="lazy"></div></div>
+      </div>
+      <div class="scroller-dots" id="testiDots">
+        <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </div>
   </div>
 </section>
 
 <section style="background:var(--green-light);">
-  <div class="results-wrap">
-    <h2 class="section-title">ומה רואים בקמפיינים עצמם?</h2>
-    <p class="section-sub">הצצה לנתונים אמיתיים מתוך מערכת הפרסום של Meta.</p>
+  <div class="wrap">
+    <h2 class="h-section">ומה רואים בקמפיינים עצמם?</h2>
+    <p class="copy">הצצה לנתונים אמיתיים מתוך מערכת הפרסום של Meta.</p>
 
-    <div class="results-row">
-      <div class="frame frame-result-featured"><img src="images/case-yaya.jpg" alt="תוצאות קמפיין - יאיא" loading="lazy"></div>
-      <div class="frame frame-result-featured"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי" loading="lazy"></div>
+    <div class="grid-2">
+      <div class="frame frame-result-lg"><img src="images/case-yaya.jpg" alt="תוצאות קמפיין - יאיא" loading="lazy"></div>
+      <div class="frame frame-result-lg"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי" loading="lazy"></div>
     </div>
 
-    <p class="sub-heading">תוצאות נוספות מתוך מערכת הפרסום של Meta</p>
+    <p class="label" style="font-size:var(--text-xl);">תוצאות נוספות מתוך מערכת הפרסום של Meta</p>
 
-    <div class="carousel-wrap">
-      <button class="carousel-arrow prev" onclick="scrollCarousel(1)" aria-label="הקודם">
+    <div class="scroller-wrap">
+      <button class="scroller-arrow prev" onclick="scrollEl(metaScroller,1)" aria-label="הקודם">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <button class="carousel-arrow next" onclick="scrollCarousel(-1)" aria-label="הבא">
+      <button class="scroller-arrow next" onclick="scrollEl(metaScroller,-1)" aria-label="הבא">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </button>
-      <div class="carousel" id="metaCarousel">
-        <div class="slide">
-          <div class="frame frame-result-wide"><img src="images/results-weekly-may2025.png" alt="תוצאות קמפיין - 7 ימים" loading="lazy"></div>
+      <div class="scroller" id="metaScroller">
+        <div class="item">
+          <div class="frame frame-result-sm"><img src="images/results-weekly-may2025.png" alt="תוצאות קמפיין - 7 ימים" loading="lazy"></div>
         </div>
-        <div class="slide">
-          <div class="frame frame-result-wide"><img src="images/results-mar-may2025.png" alt="תוצאות קמפיין - כחודשיים" loading="lazy"></div>
+        <div class="item">
+          <div class="frame frame-result-sm"><img src="images/results-mar-may2025.png" alt="תוצאות קמפיין - כחודשיים" loading="lazy"></div>
         </div>
-        <div class="slide">
-          <p class="result-caption">קמפיין וובינר</p>
-          <div class="frame frame-result-wide"><img src="images/results-2019-2022.jpg" alt="תוצאות קמפיין וובינר - כ-3 שנים" loading="lazy"></div>
+        <div class="item">
+          <p class="caption">קמפיין וובינר</p>
+          <div class="frame frame-result-sm"><img src="images/results-2019-2022.jpg" alt="תוצאות קמפיין וובינר - כ-3 שנים" loading="lazy"></div>
         </div>
       </div>
-      <div class="carousel-dots" id="carouselDots">
+      <div class="scroller-dots" id="metaDots">
         <span class="active"></span><span></span><span></span>
       </div>
     </div>
@@ -476,8 +463,8 @@
 
 <section>
   <div class="wrap-narrow">
-    <h2 class="section-title">האם קמפיין ממומן מתאים גם לעסק שלכם?</h2>
-    <p class="section-sub">הכנתי סרטון שיעזור לכם להבין למי קמפיין ממומן מתאים, מה חשוב שיהיה בעסק לפני שמתחילים, ואיך הוא יכול לעזור לייצר תנועה קבועה של פניות בלי להיות עסוקים כל היום בשיווק.</p>
+    <h2 class="h-section">האם קמפיין ממומן מתאים גם לעסק שלכם?</h2>
+    <p class="copy">הכנתי סרטון שיעזור לכם להבין למי קמפיין ממומן מתאים, מה חשוב שיהיה בעסק לפני שמתחילים, ואיך הוא יכול לעזור לייצר תנועה קבועה של פניות בלי להיות עסוקים כל היום בשיווק.</p>
     <div class="video-frame">
       <div class="placeholder">
         <div class="icon">▶</div>
@@ -496,51 +483,41 @@
 <footer>צמרת · קמפיינים חכמים לעסקים עם ערך אמיתי</footer>
 
 <script>
-function setupCarousel(carouselEl, dotsSelector){
+function setupScroller(el, dotsSelector){
   var dots = document.querySelectorAll(dotsSelector);
-  carouselEl.addEventListener('scroll', function(){
-    var slides = carouselEl.querySelectorAll('.slide');
-    var amount = slides[0].getBoundingClientRect().width + 20;
-    var idx = Math.round(Math.abs(carouselEl.scrollLeft) / amount);
-    idx = Math.max(0, Math.min(slides.length-1, idx));
+  el.addEventListener('scroll', function(){
+    var items = el.querySelectorAll('.item');
+    var amount = items[0].getBoundingClientRect().width + 16;
+    var idx = Math.round(Math.abs(el.scrollLeft) / amount);
+    idx = Math.max(0, Math.min(items.length-1, idx));
     dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
   });
 }
-function scrollCarouselEl(carouselEl, dir){
-  var slide = carouselEl.querySelector('.slide');
-  var amount = slide.getBoundingClientRect().width + 20;
-  carouselEl.scrollBy({left: dir * amount, behavior:'smooth'});
-}
-
-var metaCarousel = document.getElementById('metaCarousel');
-setupCarousel(metaCarousel, '#carouselDots span');
-function scrollCarousel(dir){ scrollCarouselEl(metaCarousel, dir); }
-
-/* Secondary testimonial gallery: arrow scroll + mouse/trackpad drag */
-var testiGallery = document.getElementById('testiGallery');
-function scrollGalleryEl(el, dir){
-  var item = el.querySelector('.g-item');
+function scrollEl(el, dir){
+  var item = el.querySelector('.item');
   var amount = item.getBoundingClientRect().width + 16;
   el.scrollBy({left: dir * amount, behavior:'smooth'});
 }
-(function enableDrag(el){
+function enableDrag(el){
   var isDown = false, startX, startScroll;
   el.addEventListener('mousedown', function(e){
-    isDown = true;
-    el.classList.add('dragging');
-    startX = e.pageX;
-    startScroll = el.scrollLeft;
+    isDown = true; el.classList.add('dragging');
+    startX = e.pageX; startScroll = el.scrollLeft;
   });
-  window.addEventListener('mouseup', function(){
-    isDown = false;
-    el.classList.remove('dragging');
-  });
+  window.addEventListener('mouseup', function(){ isDown = false; el.classList.remove('dragging'); });
   window.addEventListener('mousemove', function(e){
     if(!isDown) return;
     e.preventDefault();
     el.scrollLeft = startScroll - (e.pageX - startX);
   });
-})(testiGallery);
+}
+
+var testiScroller = document.getElementById('testiScroller');
+var metaScroller = document.getElementById('metaScroller');
+setupScroller(testiScroller, '#testiDots span');
+setupScroller(metaScroller, '#metaDots span');
+enableDrag(testiScroller);
+enableDrag(metaScroller);
 </script>
 
 </body>
