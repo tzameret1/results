@@ -97,6 +97,7 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
+html,body{max-width:100%; overflow-x:hidden;}
 body{
   background:var(--bg);
   font-family:'Heebo', Tahoma, Arial, sans-serif;
@@ -174,7 +175,8 @@ header.hero{
   color:#fff;
 }
 .hero-problem{
-  max-width:640px;
+  max-width:min(640px, 100%);
+  width:100%;
   margin:0 auto clamp(14px,2.5vh,26px);
   font-size:var(--text-xl);
   font-weight:400;
@@ -404,8 +406,8 @@ footer{
 
 <header class="hero">
   <p class="hero-problem">
-    יש לכם <span class="hl-yellow">עסק עם שליחות</span>,<br>
-    אבל במקום להרגיש שהעסק גדל ומתבסס,<br>
+    יש לכם <span class="hl-yellow">עסק עם שליחות</span>,
+    אבל במקום להרגיש שהעסק גדל ומתבסס,
     אתם עדיין <span class="hl-underline">דואגים</span> מאיפה יגיעו הלקוחות הבאים?
   </p>
 
