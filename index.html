@@ -28,18 +28,31 @@
   --sp-5:20px;  --sp-6:24px;  --sp-8:32px;  --sp-10:40px;
   --sp-12:48px; --sp-16:64px; --sp-20:80px;
 
-  /* — Type scale — fluid (mobile → desktop), one variable per role.
-     Everything on the page pulls from this list; nothing hardcodes
-     a font-size outside of it. */
-  --text-xs:   clamp(13px, 12px + 0.2vw, 14px);   /* micro labels */
-  --text-sm:   clamp(15px, 14px + 0.3vw, 16px);   /* small labels, dots */
-  --text-base: clamp(16px, 15px + 0.3vw, 18px);   /* body / subcopy */
-  --text-lg:   clamp(18px, 16px + 0.6vw, 20px);   /* eyebrow titles */
-  --text-xl:   clamp(20px, 17px + 1vw, 28px);     /* hero problem, small H2 */
-  --text-2xl:  clamp(22px, 18px + 1.4vw, 32px);   /* emphasized subheads */
-  --text-3xl:  clamp(26px, 22px + 1.6vw, 34px);   /* section H2 */
-  --text-4xl:  clamp(21px, 18.4px + 0.92vw, 38px);/* hero solution panel (dominant) */
-  --text-btn:  18px;                              /* buttons: fixed, not fluid */
+  /* — Type scale — Tailwind's standard fixed steps (not a custom
+     formula). Roles that need to grow across breakpoints do so by
+     jumping to the NEXT step at a standard breakpoint — never a
+     one-off px value. See the "responsive role overrides" block
+     below for which role changes step at which breakpoint. */
+  --step-xs:  12px;
+  --step-sm:  14px;
+  --step-base:16px;
+  --step-lg:  18px;
+  --step-xl:  20px;
+  --step-2xl: 24px;
+  --step-3xl: 30px;
+  --step-4xl: 36px;
+  --step-5xl: 48px;
+
+  /* Role → step, at the base (mobile, <640px) tier */
+  --text-xs:   var(--step-xs);
+  --text-sm:   var(--step-sm);
+  --text-base: var(--step-base);
+  --text-lg:   var(--step-lg);
+  --text-xl:   var(--step-lg);   /* hero-problem starts at lg on mobile */
+  --text-2xl:  var(--step-2xl);
+  --text-3xl:  var(--step-2xl);  /* h-section starts at 2xl on mobile */
+  --text-4xl:  var(--step-2xl);  /* solution panel starts at 2xl on mobile */
+  --text-btn:  var(--step-lg);   /* buttons: fixed, not responsive */
 
   /* — Shape / elevation — */
   --radius-sm:10px;
@@ -59,6 +72,30 @@
   --frame-result-sm:21/9; /* the 3 secondary Meta results (wide Ads Manager tables) */
 }
 
+/* ============================================================
+   RESPONSIVE ROLE OVERRIDES — standard Tailwind breakpoints only
+   (640 / 768 / 1024 / 1280). A role jumps to the NEXT scale step
+   at a breakpoint; nothing here invents an in-between px value.
+   ============================================================ */
+@media (min-width:640px){
+  :root{
+    --text-xl:  var(--step-xl);
+    --text-3xl: var(--step-3xl);
+    --text-4xl: var(--step-3xl);
+  }
+}
+@media (min-width:1024px){
+  :root{
+    --text-xl:  var(--step-2xl);
+    --text-4xl: var(--step-4xl);
+  }
+}
+@media (min-width:1280px){
+  :root{
+    --text-xl: var(--step-3xl);
+  }
+}
+
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
   background:var(--bg);
@@ -74,7 +111,7 @@ body{
 .wrap-narrow{max-width:var(--max-narrow);margin:0 auto;padding:0 var(--sp-6);}
 
 section{padding:var(--sp-20) 0;}
-@media (max-width:720px){
+@media (max-width:639px){
   section{padding:var(--sp-16) 0;}
 }
 
@@ -119,6 +156,7 @@ section{padding:var(--sp-20) 0;}
   color:var(--green);
   margin:var(--sp-10) 0 var(--sp-4);
 }
+.label.label-sm{font-size:var(--text-xl);}
 .caption{                /* tiny caption above/below a media card */
   text-align:center;
   font-size:var(--text-base);
@@ -171,16 +209,16 @@ header.hero{
 .solution-panel .g1 .line:last-child,
 .solution-panel .g2 .line:last-child{margin-bottom:0;}
 .solution-panel .panel-gap{height:clamp(10px,2vh,20px);}
-.solution-panel b{font-weight:700; color:var(--green);}
+.solution-panel b{font-weight:600; color:var(--green);}
 
 .u-black{
   white-space:nowrap;
   text-decoration:none;
-  border-bottom:2px solid #000;
-  padding-bottom:1px;
+  border-bottom:1px solid rgba(31,41,37,.6);
+  padding-bottom:2px;
 }
 
-@media (max-height:800px) and (min-width:721px){
+@media (max-height:800px) and (min-width:640px){
   header.hero{padding:14px var(--sp-6) 20px;}
   .hero-problem{margin-bottom:12px;}
   .solution-panel{padding:14px 24px;}
@@ -221,7 +259,7 @@ header.hero{
   grid-template-columns:1fr 1fr;
   gap:var(--sp-5);
 }
-@media (max-width:720px){
+@media (max-width:639px){
   .grid-2{grid-template-columns:1fr;}
 }
 .grid-2.narrow{max-width:900px; margin:0 auto;}
@@ -252,10 +290,10 @@ header.hero{
   flex:0 0 31%;
   scroll-snap-align:start;
 }
-@media (max-width:1000px){
+@media (max-width:1023px){
   .scroller .item{flex:0 0 48%;}
 }
-@media (max-width:720px){
+@media (max-width:639px){
   .scroller .item{flex:0 0 85%;}
 }
 
@@ -277,7 +315,7 @@ header.hero{
 }
 .scroller-arrow.prev{right:-10px;}
 .scroller-arrow.next{left:-10px;}
-@media (max-width:900px){
+@media (max-width:1023px){
   .scroller-arrow{display:none;}
 }
 .scroller-dots{
@@ -433,7 +471,7 @@ footer{
       <div class="frame frame-result-lg"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי" loading="lazy"></div>
     </div>
 
-    <p class="label" style="font-size:var(--text-xl);">תוצאות נוספות מתוך מערכת הפרסום של Meta</p>
+    <p class="label label-sm">תוצאות נוספות מתוך מערכת הפרסום של Meta</p>
 
     <div class="scroller-wrap">
       <button class="scroller-arrow prev" onclick="scrollEl(metaScroller,1)" aria-label="הקודם">
