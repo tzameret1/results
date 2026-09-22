@@ -77,28 +77,22 @@
     .testi-sub{font-size:26px;margin-bottom:24px;}
   }
 
-  /* HERO */
+  /* HERO — fully fluid via clamp(), no fixed heights, aware of short viewports */
   header.hero{
     background:var(--green);
-    padding:clamp(20px,4vw,32px) 24px clamp(28px,6vw,48px);
+    padding:clamp(18px,4vh,40px) 24px clamp(24px,5vh,48px);
     text-align:center;
     color:#fff;
   }
-  header.hero .brand{
-    display:block;
-    font-size:16px;
-    font-weight:500;
-    color:rgba(255,255,255,.85);
-    margin-bottom:clamp(18px,4vw,32px);
-  }
 
-  /* Problem line — small, secondary to the solution panel */
+  /* Problem line — small, secondary to the solution panel.
+     Target: 17-20px mobile / 23-26px laptop / 27-30px large desktop */
   .hero-problem{
     max-width:640px;
-    margin:0 auto clamp(20px,4vw,30px);
-    font-size:28px;
+    margin:0 auto clamp(14px,2.5vh,26px);
+    font-size:clamp(17px,15.2px + 0.72vw,30px);
     font-weight:400;
-    line-height:1.5;
+    line-height:1.45;
     color:rgba(255,255,255,.92);
   }
   .hero-problem .hl-yellow{
@@ -112,37 +106,39 @@
     text-decoration-thickness:2px;
     text-underline-offset:3px;
   }
-  @media (max-width:720px){
-    .hero-problem{font-size:20px;}
-  }
 
-  /* SOLUTION PANEL — dominant typographic element of the hero */
+  /* SOLUTION PANEL — dominant typographic element of the hero.
+     Target: 21-24px mobile / 28-32px laptop / 34-38px large desktop */
   .solution-panel{
     background:var(--solution-bg);
     color:var(--ink);
     border-radius:20px;
-    padding:clamp(20px,4vw,34px) clamp(18px,4vw,36px);
+    padding:clamp(16px,3vh,32px) clamp(16px,3.5vw,34px);
     max-width:820px;
     margin:0 auto;
     text-align:center;
   }
   .solution-panel .g1 .line,
   .solution-panel .g2 .line{
-    font-size:38px;
+    font-size:clamp(21px,18.4px + 0.92vw,38px);
     font-weight:400;
-    line-height:1.22;
-    margin-bottom:4px;
-  }
-  @media (max-width:720px){
-    .solution-panel .g1 .line,
-    .solution-panel .g2 .line{font-size:27px;}
+    line-height:1.2;
+    margin-bottom:clamp(2px,0.6vh,6px);
   }
   .solution-panel .g1 .line:last-child{margin-bottom:0;}
   .solution-panel .g2 .line:last-child{margin-bottom:0;}
-  .solution-panel .panel-gap{height:clamp(14px,2.4vw,20px);}
+  .solution-panel .panel-gap{height:clamp(10px,2vh,20px);}
   .solution-panel b{
     font-weight:700;
     color:var(--green);
+  }
+
+  /* Extra-short laptop viewports (e.g. 1366x768): tighten further */
+  @media (max-height:800px) and (min-width:721px){
+    header.hero{padding:14px 24px 20px;}
+    .hero-problem{margin-bottom:12px;}
+    .solution-panel{padding:14px 24px;}
+    .solution-panel .panel-gap{height:8px;}
   }
 
   /* TESTIMONIALS */
@@ -378,8 +374,6 @@
 <body>
 
 <header class="hero">
-  <span class="brand">צמרת. שיווק דיגיטלי לעסקים עם שליחות</span>
-
   <p class="hero-problem">
     יש לכם <span class="hl-yellow">עסק עם שליחות</span>,<br>
     אבל במקום להרגיש שהעסק גדל ומתבסס,<br>
