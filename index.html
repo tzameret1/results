@@ -171,11 +171,13 @@
     display:block;
     width:100%;
     height:100%;
-    object-fit:contain;
+    object-fit:cover;
     object-position:var(--ox,center) var(--oy,center);
   }
-  .frame-testi-lg{aspect-ratio:4/5;}
-  .frame-testi-sm{aspect-ratio:4/5;}
+  .frame-testi-lg{aspect-ratio:4/3;}
+  .frame-testi-sm{aspect-ratio:4/3;}
+  .frame-testi-wide{aspect-ratio:2.3/1;}
+  .frame-testi-tall{aspect-ratio:3/5;}
 
   .more-title{
     text-align:center;
@@ -191,6 +193,7 @@
   /* SECONDARY TESTIMONIAL GALLERY (smaller, drag-scroll) */
   .gallery-scroll{
     display:flex;
+    align-items:center;
     gap:14px;
     overflow-x:auto;
     scroll-snap-type:x mandatory;
@@ -417,12 +420,12 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </button>
       <div class="gallery-scroll" id="testiGallery">
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/testimonial6.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="g-item"><div class="frame frame-testi-wide"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="g-item"><div class="frame frame-testi-wide"><img src="images/testimonial6.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
         <div class="g-item"><div class="frame frame-testi-sm"><img src="images/testimonial3.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/testimonial4.jpg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="g-item"><div class="frame frame-testi-wide"><img src="images/testimonial4.jpg" alt="עדות לקוח" loading="lazy"></div></div>
         <div class="g-item"><div class="frame frame-testi-sm"><img src="images/testimonial7.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy"></div></div>
+        <div class="g-item"><div class="frame frame-testi-tall"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy"></div></div>
         <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-noa.jpg" alt="עדות נועה" loading="lazy"></div></div>
         <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-rinat1.jpg" alt="עדות רינת" loading="lazy"></div></div>
         <div class="g-item"><div class="frame frame-testi-sm"><img src="images/quote-rinat2.jpg" alt="עדות רינת" loading="lazy"></div></div>
