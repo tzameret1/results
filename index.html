@@ -20,7 +20,8 @@
    • topbar          / sticky-brand-cta         → .topbar, .topbar-btn
    • hero            / flowing-benefits        → .hero-problem, .hero-benefits
    • testimonials    / featured-scroller        → .grid-2, .scroller, .frame-testi
-   • results         / featured-scroller        → .grid-2, .scroller, .frame-result-lg/-sm
+   • results         / kpi-cards                → .result-card, .kpis, .scroller
+   • lightbox        / zoom-viewer              → .lb (opens any [data-lb] frame)
    • video           / embed-placeholder        → .video-frame
    • cta             / solid-block               → section.cta, .wa-btn
 
@@ -104,12 +105,10 @@
   --max:1180px;
   --max-narrow:900px;
 
-  /* — Frame ratios (Canva-style: one ratio per content type, so every
-     card in the same row is identical — this is what keeps carousels
-     and grids level instead of leaving ragged gaps) — */
-  --frame-testi:4/3;      /* every testimonial screenshot, featured or gallery */
-  --frame-result-lg:16/9; /* the 2 featured Meta results */
-  --frame-result-sm:21/9; /* the 3 secondary Meta results (wide Ads Manager tables) */
+  /* — Frames: screenshots are never cropped. Each image keeps its own
+     ratio; only the desktop testimonial carousel uses a fixed-height
+     box, and the image is fitted (contain) inside it, not cut. — */
+  --frame-testi-h:340px;  /* desktop carousel box height */
 }
 
 /* ============================================================
@@ -325,41 +324,98 @@ header.hero{
 
 /* ============================================================
    MEDIA FRAME COMPONENT
-   One component, used everywhere a screenshot appears. The frame
-   is a fixed-ratio box (--frame-testi / --frame-result-lg / -sm);
-   the image always fills it (object-fit:cover) so every card in a
-   row is the exact same height — no ragged gaps, no orphan
-   whitespace. Per-image --ox/--oy let you nudge the crop later
-   without touching layout.
+   Every screenshot sits in a .frame. Rule: NEVER crop content —
+   the image keeps its original aspect ratio. Frames are <button>s
+   that open the lightbox; a small magnifier hints at that.
    ============================================================ */
 .frame{
+  display:block;
+  width:100%;
+  position:relative;
+  border:0; padding:0; font:inherit; color:inherit; text-align:inherit;
   border-radius:var(--radius-md);
   overflow:hidden;
   box-shadow:var(--shadow);
   background:var(--card);
+  cursor:zoom-in;
 }
 .frame img{
   display:block;
   width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:var(--ox,center) var(--oy,center);
+  height:auto;          /* natural ratio — nothing cut */
 }
-.frame-testi{aspect-ratio:var(--frame-testi);}
-.frame-result-lg{aspect-ratio:var(--frame-result-lg);}
-.frame-result-sm{aspect-ratio:var(--frame-result-sm);}
+.frame:focus-visible{outline:3px solid var(--yellow); outline-offset:2px;}
+.zoom-hint{
+  position:absolute;
+  left:8px; bottom:8px;
+  width:30px; height:30px;
+  border-radius:50%;
+  background:rgba(31,41,37,.6);
+  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+}
 
-/* Meta secondary results recompose on mobile: these are dense data
-   tables, not decorative photos — legibility beats a filled frame.
-   One full-width card at a time, a taller box, and object-fit:contain
-   so no number/column is ever cropped. Desktop/laptop are untouched. */
-@media (max-width:639px){
-  .scroller-meta .item{flex:0 0 92%;}
-  .scroller-meta .frame-result-sm{
-    aspect-ratio:4/3;
-    background:#fff;
+/* Desktop/laptop testimonial carousel: keep the row level with one
+   box height, but FIT the screenshot inside it (contain) instead of
+   cropping. Phones show each testimonial at its natural size. */
+@media (min-width:640px){
+  .scroller .frame-testi{
+    height:var(--frame-testi-h);
+    background:#F3EFE8;
   }
-  .scroller-meta .frame-result-sm img{object-fit:contain;}
+  .scroller .frame-testi img{width:100%; height:100%; object-fit:contain;}
+}
+
+/* ============================================================
+   RESULT CARD — the KPI numbers carry the result; the Meta
+   screenshot underneath is the proof (tap to enlarge).
+   ============================================================ */
+.result-card{
+  background:var(--card);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+  padding:var(--sp-5);
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-4);
+  height:100%;
+}
+.result-head b{display:block; font-size:var(--text-lg); color:var(--green); line-height:1.3;}
+.result-head span{display:block; font-size:var(--text-sm); color:var(--ink-soft);}
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--sp-2);
+}
+.kpis.kpis-2{grid-template-columns:repeat(2,1fr);}
+.kpi{
+  background:var(--solution-bg);
+  border-radius:var(--radius-sm);
+  padding:var(--sp-3) var(--sp-2);
+  text-align:center;
+}
+.kpi b{
+  display:block;
+  font-size:var(--step-2xl);
+  font-weight:700;
+  color:var(--green);
+  line-height:1.15;
+  white-space:nowrap;
+  direction:ltr;         /* keeps ₪ and separators in order */
+}
+.kpi span{display:block; font-size:var(--text-xs); color:var(--ink-soft); margin-top:2px;}
+.result-note{font-size:var(--text-sm); color:var(--ink-soft);}
+.result-note b{color:var(--ink);}
+.result-card .frame{box-shadow:none; border:1px solid rgba(31,41,37,.1); margin-top:auto;}
+@media (max-width:1279px){
+  .kpi b{font-size:var(--step-xl);}
+}
+@media (max-width:639px){
+  .result-card{padding:var(--sp-4);}
+}
+@media (max-width:379px){
+  .kpi b{font-size:var(--step-lg);}
 }
 
 /* ============================================================
@@ -373,7 +429,7 @@ header.hero{
 @media (max-width:639px){
   .grid-2{grid-template-columns:1fr;}
 }
-.grid-2.narrow{max-width:900px; margin:0 auto;}
+.grid-2.narrow{max-width:900px; margin:0 auto; align-items:center;}
 
 /* ============================================================
    SCROLLER — one horizontal drag/swipe row component, reused for
@@ -386,7 +442,7 @@ header.hero{
 }
 .scroller{
   display:flex;
-  align-items:stretch;
+  align-items:flex-start;   /* screenshots keep their own height */
   gap:var(--sp-4);
   overflow-x:auto;
   scroll-snap-type:x mandatory;
@@ -396,6 +452,12 @@ header.hero{
   user-select:none;
 }
 .scroller.dragging{cursor:grabbing;}
+.scroller-meta{align-items:stretch;}   /* result cards: equal height */
+@media (max-width:639px){
+  .scroller-meta .item{flex:0 0 92%;}
+  /* testimonials differ a lot in height: the row follows the card in view (JS) */
+  #testiScroller{overflow-y:hidden; transition:height .25s ease;}
+}
 .scroller::-webkit-scrollbar{display:none;}
 .scroller .item{
   flex:0 0 31%;
@@ -442,6 +504,61 @@ header.hero{
   opacity:.3;
 }
 .scroller-dots span.active{opacity:1;background:var(--green);}
+
+/* ============================================================
+   LIGHTBOX — one viewer for every [data-lb] frame. Image keeps its
+   ratio; tall ones scroll vertically; tap/click toggles a zoomed
+   view (scroll both ways) for reading dense Meta tables.
+   ============================================================ */
+.lb{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(12,20,17,.94);
+  display:flex; flex-direction:column;
+}
+.lb[hidden]{display:none;}
+.lb-stage{
+  flex:1; min-height:0;
+  overflow:auto;
+  display:flex;
+  padding:60px 8px 8px;
+  direction:ltr;                 /* predictable scroll origin when zoomed */
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.lb-stage img{
+  margin:auto;                   /* centred when it fits, top-aligned when it overflows */
+  flex-shrink:0;                 /* zoomed size must not be squeezed by the flex stage */
+  display:block;
+  width:min(100%, 1100px);
+  height:auto;
+  border-radius:8px;
+  background:#fff;
+  cursor:zoom-in;
+}
+.lb-stage img.tall{width:min(100%, 560px);}
+.lb-stage img.zoomed{max-width:none; cursor:zoom-out;}   /* width set in JS: max(original size, 2x fitted) */
+.lb-close, .lb-nav{
+  position:absolute; z-index:2;
+  width:44px; height:44px;
+  border-radius:50%;
+  border:0;
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.lb-close{top:10px; left:10px;}
+.lb-nav{top:50%; transform:translateY(-50%);}
+.lb-prev{right:14px;}
+.lb-next{left:14px;}
+.lb-close:hover, .lb-nav:hover{background:rgba(255,255,255,.26);}
+.lb-bar{
+  display:flex; justify-content:center; gap:var(--sp-4);
+  padding:10px 16px 14px;
+  color:rgba(255,255,255,.75);
+  font-size:var(--text-sm);
+}
+@media (max-width:1023px){ .lb-nav{display:none;} }   /* phones/tablets: swipe */
 
 /* ============================================================
    VIDEO
@@ -541,8 +658,8 @@ footer{
     <p class="h-dominant">הנה <span class="hl-yellow">הצלחות</span> שלקוחות משתפים תוך כדי העבודה יחד</p>
 
     <div class="grid-2 narrow">
-      <div class="frame frame-testi"><img src="images/testimonial1.jpg" alt="עדות לקוח" loading="lazy"></div>
-      <div class="frame frame-testi"><img src="images/testimonial2.jpg" alt="עדות לקוח" loading="lazy"></div>
+      <button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial1.jpg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
+      <button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial2.jpg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
     </div>
 
     <p class="label">עוד סיפורי הצלחה</p>
@@ -555,16 +672,16 @@ footer{
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </button>
       <div class="scroller" id="testiScroller">
-        <div class="item"><div class="frame frame-testi"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/testimonial6.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/testimonial3.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/testimonial4.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/testimonial7.jpg" alt="עדות לקוח" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy" style="--oy:20%"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/quote-noa.jpg" alt="עדות נועה" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat1.jpg" alt="עדות רינת" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat2.jpg" alt="עדות רינת" loading="lazy"></div></div>
-        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat3.jpg" alt="עדות רינת" loading="lazy"></div></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial6.jpeg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial3.jpg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial4.jpg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial7.jpg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות אמיר"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות נועה"><img src="images/quote-noa.jpg" alt="עדות נועה" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות רינת"><img src="images/quote-rinat1.jpg" alt="עדות רינת" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות רינת"><img src="images/quote-rinat2.jpg" alt="עדות רינת" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות רינת"><img src="images/quote-rinat3.jpg" alt="עדות רינת" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
       </div>
       <div class="scroller-dots" id="testiDots">
         <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -579,8 +696,17 @@ footer{
     <p class="copy">הצצה לנתונים אמיתיים מתוך מערכת הפרסום של Meta.</p>
 
     <div class="grid-2">
-      <div class="frame frame-result-lg"><img src="images/case-yaya.jpg" alt="תוצאות קמפיין - יאיא" loading="lazy"></div>
-      <div class="frame frame-result-lg"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי" loading="lazy"></div>
+      <div class="result-card">
+          <div class="result-head"><b>יאיא · מטפל בדכאון וחרדה</b><span>1.2.26–30.4.26 (3 חודשים)</span></div>
+          <div class="kpis"><div class="kpi"><b>201</b><span>לידים</span></div><div class="kpi"><b>₪30.01</b><span>עלות לליד</span></div><div class="kpi"><b>₪6,031.40</b><span>הוצאה כוללת</span></div></div>
+          <p class="result-note">עלות לליד בקמפיין הקודם: <b>₪60.57</b></p>
+          <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - יאיא"><img src="images/case-yaya.jpg" alt="תוצאות קמפיין - יאיא" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
+        </div>
+      <div class="result-card">
+          <div class="result-head"><b>רחלי · מעסה ומטפלת במגע</b><span>1.2.26–30.4.26 (3 חודשים)</span></div>
+          <div class="kpis"><div class="kpi"><b>437</b><span>לידים</span></div><div class="kpi"><b>₪10.17</b><span>עלות לליד</span></div><div class="kpi"><b>₪4,443.03</b><span>הוצאה כוללת</span></div></div>
+          <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - רחלי"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
+        </div>
     </div>
 
     <p class="label label-sm">תוצאות נוספות מתוך מערכת הפרסום של Meta</p>
@@ -594,14 +720,25 @@ footer{
       </button>
       <div class="scroller scroller-meta" id="metaScroller">
         <div class="item">
-          <div class="frame frame-result-sm"><img src="images/results-weekly-may2025.png" alt="תוצאות קמפיין - 7 ימים" loading="lazy"></div>
+        <div class="result-card">
+          <div class="result-head"><b>7 ימים</b><span>20–26 במאי 2025</span></div>
+          <div class="kpis"><div class="kpi"><b>21</b><span>לידים</span></div><div class="kpi"><b>₪20.84</b><span>עלות לליד</span></div><div class="kpi"><b>₪437.70</b><span>הוצאה כוללת</span></div></div>
+          <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - 7 ימים"><img src="images/results-weekly-may2025.png" alt="תוצאות קמפיין - 7 ימים" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
+        </div>
         </div>
         <div class="item">
-          <div class="frame frame-result-sm"><img src="images/results-mar-may2025.png" alt="תוצאות קמפיין - כחודשיים" loading="lazy"></div>
+        <div class="result-card">
+          <div class="result-head"><b>כחודשיים</b><span>30.3.25–27.5.25</span></div>
+          <div class="kpis"><div class="kpi"><b>431</b><span>לידים</span></div><div class="kpi"><b>₪6.95</b><span>עלות לליד</span></div><div class="kpi"><b>₪2,993.61</b><span>הוצאה כוללת</span></div></div>
+          <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - כחודשיים"><img src="images/results-mar-may2025.png" alt="תוצאות קמפיין - כחודשיים" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
+        </div>
         </div>
         <div class="item">
-          <p class="caption">קמפיין וובינר</p>
-          <div class="frame frame-result-sm"><img src="images/results-2019-2022.jpg" alt="תוצאות קמפיין וובינר - כ-3 שנים" loading="lazy"></div>
+        <div class="result-card">
+          <div class="result-head"><b>קמפיין וובינר · כ-3 שנים</b><span>7.6.2019–7.7.2022</span></div>
+          <div class="kpis kpis-2"><div class="kpi"><b>2,648</b><span>לידים</span></div><div class="kpi"><b>₪6.59</b><span>עלות לליד</span></div></div>
+          <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין וובינר - כ-3 שנים"><img src="images/results-2019-2022.jpg" alt="תוצאות קמפיין וובינר - כ-3 שנים" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
+        </div>
         </div>
       </div>
       <div class="scroller-dots" id="metaDots">
@@ -630,18 +767,35 @@ footer{
   <a class="wa-btn" href="https://wa.me/972548080089?text=%D7%A9%D7%99%D7%97%D7%94" target="_blank">לשיחת התאמה בוואטסאפ</a>
 </section>
 
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="תצוגה מוגדלת">
+  <button type="button" class="lb-close" id="lbClose" aria-label="סגירה"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="הקודם"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="הבא"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <div class="lb-stage" id="lbStage"><img id="lbImg" alt=""></div>
+  <div class="lb-bar"><span id="lbCount" dir="ltr"></span><span>הקישו על התמונה להגדלה</span></div>
+</div>
+
 <footer>צמרת · קמפיינים חכמים לעסקים עם ערך אמיתי</footer>
 
 <script>
-function setupScroller(el, dotsSelector){
+function setupScroller(el, dotsSelector, fitHeight){
   var dots = document.querySelectorAll(dotsSelector);
-  el.addEventListener('scroll', function(){
+  function update(){
     var items = el.querySelectorAll('.item');
     var amount = items[0].getBoundingClientRect().width + 16;
     var idx = Math.round(Math.abs(el.scrollLeft) / amount);
     idx = Math.max(0, Math.min(items.length-1, idx));
     dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
-  });
+    /* phones: row height = the testimonial in view, so short ones don't leave a gap */
+    if (fitHeight) el.style.height = innerWidth < 640 ? (items[idx].offsetHeight + 20) + 'px' : '';
+  }
+  el.addEventListener('scroll', update);
+  if (fitHeight){
+    window.addEventListener('load', update);
+    window.addEventListener('resize', update);
+    el.querySelectorAll('img').forEach(function(i){ i.addEventListener('load', update); });
+    update();
+  }
 }
 function scrollEl(el, dir){
   var item = el.querySelector('.item');
@@ -649,25 +803,115 @@ function scrollEl(el, dir){
   el.scrollBy({left: dir * amount, behavior:'smooth'});
 }
 function enableDrag(el){
-  var isDown = false, startX, startScroll;
+  var isDown = false, moved = false, startX, startScroll;
   el.addEventListener('mousedown', function(e){
-    isDown = true; el.classList.add('dragging');
+    isDown = true; moved = false; el.classList.add('dragging');
     startX = e.pageX; startScroll = el.scrollLeft;
+    e.preventDefault();            /* no native image drag */
   });
   window.addEventListener('mouseup', function(){ isDown = false; el.classList.remove('dragging'); });
   window.addEventListener('mousemove', function(e){
     if(!isDown) return;
-    e.preventDefault();
+    if(Math.abs(e.pageX - startX) > 6) moved = true;
     el.scrollLeft = startScroll - (e.pageX - startX);
   });
+  /* a drag must not open the lightbox */
+  el.addEventListener('click', function(e){
+    if(moved){ e.preventDefault(); e.stopPropagation(); moved = false; }
+  }, true);
 }
 
 var testiScroller = document.getElementById('testiScroller');
 var metaScroller = document.getElementById('metaScroller');
-setupScroller(testiScroller, '#testiDots span');
+setupScroller(testiScroller, '#testiDots span', true);
 setupScroller(metaScroller, '#metaDots span');
 enableDrag(testiScroller);
 enableDrag(metaScroller);
+
+/* ---------- Lightbox ---------- */
+(function(){
+  var lb = document.getElementById('lb'),
+      stage = document.getElementById('lbStage'),
+      img = document.getElementById('lbImg'),
+      count = document.getElementById('lbCount'),
+      list = [], idx = 0, lastFocus = null;
+
+  function show(i){
+    idx = (i + list.length) % list.length;
+    var src = list[idx].querySelector('img');
+    img.classList.remove('zoomed', 'tall');
+    img.style.width = '';
+    img.src = src.currentSrc || src.getAttribute('src');
+    img.alt = src.alt;
+    var mark = function(){ if (img.naturalHeight / img.naturalWidth > 1.2) img.classList.add('tall'); };
+    if (img.complete && img.naturalWidth) mark(); else img.onload = mark;
+    stage.scrollTop = 0; stage.scrollLeft = 0;
+    count.textContent = (idx + 1) + ' / ' + list.length;
+  }
+  function open(frame){
+    var group = frame.getAttribute('data-lb');
+    list = Array.prototype.slice.call(document.querySelectorAll('[data-lb="' + group + '"]'));
+    lastFocus = frame;
+    show(list.indexOf(frame));
+    lb.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lbClose').focus();
+  }
+  function close(){
+    lb.hidden = true;
+    img.removeAttribute('src');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  window.lbOpen = open;   /* used by QA screenshots */
+
+  document.querySelectorAll('[data-lb]').forEach(function(f){
+    f.addEventListener('click', function(){ open(f); });
+  });
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbNext').addEventListener('click', function(){ show(idx + 1); });
+  document.getElementById('lbPrev').addEventListener('click', function(){ show(idx - 1); });
+  /* click outside the image closes */
+  stage.addEventListener('click', function(e){ if (e.target === stage) close(); });
+  lb.querySelector('.lb-bar').addEventListener('click', close);
+
+  /* tap/click the image: toggle zoom, keeping the tapped point in view */
+  img.addEventListener('click', function(e){
+    var r = img.getBoundingClientRect(),
+        rx = (e.clientX - r.left) / r.width,
+        ry = (e.clientY - r.top) / r.height,
+        sr = stage.getBoundingClientRect();
+    var fitW = img.offsetWidth;
+    img.classList.toggle('zoomed');
+    img.style.width = img.classList.contains('zoomed') ? Math.max(img.naturalWidth, fitW * 2) + 'px' : '';
+    if (img.classList.contains('zoomed')){
+      stage.scrollLeft = rx * img.offsetWidth - (e.clientX - sr.left);
+      stage.scrollTop  = ry * img.offsetHeight - (e.clientY - sr.top) + 60;
+    }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(idx + 1);   /* RTL: next is on the left */
+    else if (e.key === 'ArrowRight') show(idx - 1);
+  });
+
+  /* swipe between images (not while zoomed — then the finger pans) */
+  var tx = 0, ty = 0;
+  stage.addEventListener('touchstart', function(e){
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    if (img.classList.contains('zoomed') || e.changedTouches.length !== 1) return;
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5){
+      show(dx > 0 ? idx + 1 : idx - 1);            /* RTL: swipe right → next */
+    }
+  }, {passive:true});
+})();
 </script>
 
 </body>
