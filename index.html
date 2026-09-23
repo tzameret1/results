@@ -240,12 +240,10 @@ header.hero{
 .hero-benefits b{
   font-weight:700;
   color:#fff;
-  /* gold outline around white text (text-shadow ring — works in every browser) */
+  /* soft gold glow around white text */
   text-shadow:
-     1px  0   0 var(--yellow), -1px  0   0 var(--yellow),
-     0    1px 0 var(--yellow),  0   -1px 0 var(--yellow),
-     1px  1px 0 var(--yellow), -1px -1px 0 var(--yellow),
-     1px -1px 0 var(--yellow), -1px  1px 0 var(--yellow);
+    0 0 8px  rgba(242,200,75,.55),
+    0 0 18px rgba(242,200,75,.30);
 }
 
 .hero-closing{
