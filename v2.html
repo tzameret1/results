@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>צמרת | תוצאות ועדויות (גרסה B)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   ARCHITECTURE
+   Design Tokens → Typography Roles → Components → Layout Variants → Responsive Rules
+   ================================================================
+
+   COMPONENT REGISTRY (built, in use on this page)
+   Each section in the HTML is tagged data-component / data-variant.
+   Find its CSS by searching that variant name below.
+
+   • topbar          / sticky-brand-cta         → .topbar, .topbar-btn
+   • hero            / flowing-benefits        → .hero-problem, .hero-benefits
+   • testimonials    / featured-scroller        → .grid-2, .scroller, .frame-testi
+   • results         / featured-scroller        → .grid-2, .scroller, .frame-result-lg/-sm
+   • video           / embed-placeholder        → .video-frame
+   • cta             / solid-block               → section.cta, .wa-btn
+
+   Responsive behavior is PART of each variant's own CSS (the
+   @media rules live next to the variant, not bolted on after).
+   art-direction note: a variant is free to recompose content for
+   mobile (not just shrink it) — see testimonials/featured-scroller,
+   which drops from a 2-col grid to a single column AND swaps its
+   secondary row from a 3-up scroller to a 1-up peek-scroller.
+
+   ROADMAP — specified, NOT built (no untested CSS shipped for these;
+   build only when a real page actually needs the variant):
+   • testimonials / grid            — even grid, no featured/secondary split
+   • testimonials / single-story    — one large quote + photo
+   • testimonials / cards-carousel  — everything in one carousel, no featured row
+   • results      / stat-row        — 3-4 big standalone numbers, no screenshots
+   • results      / before-after    — two states side by side
+   • hero         / centered-statement — single strong line, no two-tier panel
+   • hero         / split            — text one side, image/video the other
+   • cta          / split-cta        — text one side, button+image the other
+   ================================================================ */
+
+/* ============================================================
+   DESIGN SYSTEM — reusable across landing pages
+   Change a token here and everything built from it updates.
+   ============================================================ */
+:root{
+  /* — Color — */
+  --green:#2F6655;         /* primary brand */
+  --green-light:#DDEBE3;   /* soft section background */
+  --solution-bg:#EAF3ED;   /* panel background */
+  --yellow:#F2C84B;        /* accent / CTA only */
+  --mint:#A8E6C1;          /* hero benefits accent only */
+  --ink:#1F2925;           /* primary text */
+  --ink-soft:#59635F;      /* secondary text */
+  --bg:#FAF9F5;            /* page background */
+  --card:#FFFFFF;          /* card background */
+
+  /* — Spacing scale (4px base) — everything else references this */
+  --sp-1:4px;   --sp-2:8px;   --sp-3:12px;  --sp-4:16px;
+  --sp-5:20px;  --sp-6:24px;  --sp-8:32px;  --sp-10:40px;
+  --sp-12:48px; --sp-16:64px; --sp-20:80px;
+
+  /* — Type scale — Tailwind's standard fixed steps (not a custom
+     formula). Roles that need to grow across breakpoints do so by
+     jumping to the NEXT step at a standard breakpoint — never a
+     one-off px value. See the "responsive role overrides" block
+     below for which role changes step at which breakpoint. */
+  --step-xs:  12px;
+  --step-sm:  14px;
+  --step-base:16px;
+  --step-lg:  18px;
+  --step-xl:  20px;
+  --step-2xl: 24px;
+  --step-3xl: 30px;
+  --step-4xl: 36px;
+  --step-5xl: 48px;
+
+  /* Role → step, at the base (mobile, <640px) tier.
+     --text-xl (eyebrow/secondary role) and --text-2xl (dominant role)
+     each own their own growth curve below, chosen so --text-2xl is
+     ALWAYS larger than --text-xl at every breakpoint — never share
+     a growth curve between a "secondary" and "dominant" role. */
+  --text-xs:   var(--step-xs);
+  --text-sm:   var(--step-sm);
+  --text-base: var(--step-base);
+  --text-lg:   var(--step-lg);
+  --text-xl:   var(--step-lg);   /* secondary role: hero-problem, eyebrow */
+  --text-2xl:  var(--step-2xl);  /* dominant role: h-dominant, benefits */
+  --text-3xl:  var(--step-2xl);  /* h-section starts at 2xl on mobile */
+  --text-btn:  var(--step-lg);   /* buttons: fixed, not responsive */
+
+  /* — Shape / elevation — */
+  --radius-sm:10px;
+  --radius-md:14px;
+  --radius-lg:20px;
+  --shadow:0 4px 16px rgba(31,41,37,.06);
+
+  /* — Layout — */
+  --max:1180px;
+  --max-narrow:900px;
+
+  /* — Frame ratios (Canva-style: one ratio per content type, so every
+     card in the same row is identical — this is what keeps carousels
+     and grids level instead of leaving ragged gaps) — */
+  --frame-testi:4/3;      /* every testimonial screenshot, featured or gallery */
+  --frame-result-lg:16/9; /* the 2 featured Meta results */
+  --frame-result-sm:21/9; /* the 3 secondary Meta results (wide Ads Manager tables) */
+}
+
+/* ============================================================
+   RESPONSIVE ROLE OVERRIDES — standard Tailwind breakpoints only
+   (640 / 768 / 1024 / 1280). A role jumps to the NEXT scale step
+   at a breakpoint; nothing here invents an in-between px value.
+   ============================================================ */
+@media (min-width:640px){
+  :root{
+    --text-xl:  var(--step-xl);   /* secondary role caps here — does not grow further */
+    --text-3xl: var(--step-3xl);
+  }
+}
+@media (min-width:1024px){
+  :root{
+    --text-2xl: var(--step-3xl);  /* dominant role keeps growing past the secondary role */
+  }
+}
+@media (min-width:1280px){
+  :root{
+    --text-2xl: var(--step-4xl);
+  }
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{max-width:100%; overflow-x:hidden;}
+body{
+  background:var(--bg);
+  font-family:'Heebo', Tahoma, Arial, sans-serif;
+  color:var(--ink);
+  line-height:1.6;
+}
+
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--sp-6);}
+.wrap-narrow{max-width:var(--max-narrow);margin:0 auto;padding:0 var(--sp-6);}
+
+section{padding:var(--sp-20) 0;}
+@media (max-width:639px){
+  section{padding:var(--sp-16) 0;}
+}
+
+/* ============================================================
+   TEXT PRIMITIVES — every heading/subhead in the page uses one
+   of these four classes. Resize a role once, it updates everywhere.
+   ============================================================ */
+.h-section{           /* big section title, e.g. "ומה רואים בקמפיינים עצמם?" */
+  text-align:center;
+  font-size:var(--text-3xl);
+  font-weight:700;
+  margin-bottom:var(--sp-3);
+}
+.h-eyebrow{            /* small label above a dominant subhead */
+  text-align:center;
+  font-size:var(--text-xl);
+  font-weight:400;
+  color:var(--green);
+  margin-bottom:var(--sp-1);
+}
+.h-dominant{            /* the bold, larger, green "real" headline of a section */
+  text-align:center;
+  font-size:var(--text-2xl);
+  font-weight:700;
+  color:var(--green);
+  line-height:1.25;
+  max-width:820px;
+  margin:0 auto var(--sp-8);
+}
+.copy{                  /* body copy under a heading */
+  text-align:center;
+  color:var(--ink-soft);
+  font-size:var(--text-base);
+  line-height:1.6;
+  max-width:640px;
+  margin:0 auto var(--sp-10);
+}
+.label{                 /* small standalone label, e.g. "עוד סיפורי הצלחה" */
+  text-align:center;
+  font-size:var(--text-2xl);
+  font-weight:700;
+  color:var(--green);
+  margin:var(--sp-10) 0 var(--sp-4);
+}
+.label.label-sm{font-size:var(--text-xl);}
+.caption{                /* tiny caption above/below a media card */
+  text-align:center;
+  font-size:var(--text-base);
+  font-weight:600;
+  margin-bottom:var(--sp-2);
+}
+
+/* ============================================================
+   TOPBAR — thin bar fixed to the top of the viewport for the whole
+   scroll: brand + tagline on one side, WhatsApp CTA on the other.
+   position:fixed (not sticky) because html/body use overflow-x:hidden,
+   which breaks sticky. Body gets matching padding-top.
+   ============================================================ */
+:root{--bar-h:52px;}
+body{padding-top:var(--bar-h);}
+.topbar{
+  position:fixed;
+  top:0; right:0; left:0;
+  z-index:50;
+  height:var(--bar-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--sp-3);
+  padding:0 var(--sp-6);
+  background:#285748;                 /* a shade under --green so it reads as its own layer */
+  border-bottom:1px solid rgba(255,255,255,.14);
+  box-shadow:0 2px 10px rgba(0,0,0,.12);
+  color:#fff;
+}
+.topbar-brand{
+  display:flex;
+  align-items:baseline;
+  gap:var(--sp-2);
+  min-width:0;
+  font-size:var(--text-sm);
+  line-height:1.3;
+}
+.topbar-brand b{font-size:var(--text-lg); font-weight:700;}
+.topbar-brand .dot{opacity:.5;}
+.topbar-brand span{color:rgba(255,255,255,.85);}
+.topbar-btn{
+  flex-shrink:0;
+  background:var(--yellow);
+  color:var(--ink);
+  font-weight:700;
+  font-size:var(--text-sm);
+  padding:8px 18px;
+  border-radius:999px;
+  text-decoration:none;
+  white-space:nowrap;
+}
+@media (max-width:639px){
+  .topbar{padding:0 var(--sp-4);}
+  /* stack brand over tagline so the bar stays thin without cutting the text */
+  .topbar-brand{flex-direction:column; align-items:flex-start; gap:0;}
+  .topbar-brand b{font-size:var(--text-base);}
+  .topbar-brand .dot{display:none;}
+  .topbar-brand span{font-size:11px;}
+  .topbar-btn{padding:7px 14px; font-size:13px;}
+}
+
+/* ============================================================
+   HERO — flowing text, no box. Problem (secondary) → Benefits
+   (dominant) → Closing line (quiet, hairline-separated). Hierarchy
+   is built with size/weight/color only — no borders/underlines.
+   ============================================================ */
+header.hero{
+  background:var(--green);
+  padding:clamp(18px,4vh,36px) var(--sp-6) clamp(24px,5vh,44px);
+  text-align:center;
+  color:#fff;
+}
+/* phones: narrower gutter so each benefit stays on one line */
+@media (max-width:639px){
+  header.hero{padding-inline:var(--sp-4);}
+  header.hero .hero-problem{font-size:var(--step-base);}  /* one step below the benefits */
+}
+@media (min-width:640px) and (max-width:1023px){
+  header.hero .hero-problem{font-size:var(--step-lg);}    /* keeps a gap under the 24px benefits */
+}
+.hero-problem{
+  max-width:640px;
+  margin:0 auto clamp(16px,3vh,26px);
+  font-size:var(--text-xl);
+  font-weight:400;
+  line-height:1.35;
+  color:rgba(255,255,255,.92);
+}
+.hero-problem p{text-wrap:balance;}
+.hl-yellow{color:var(--yellow); font-weight:700;}
+.hero-problem .hl-em{font-weight:700; color:#fff;}
+
+.hero-benefits{
+  max-width:680px;
+  margin:0 auto clamp(18px,3vh,28px);
+}
+.hero-benefits p{
+  font-size:var(--text-2xl);   /* same size as the "הנה הצלחות" headline */
+  font-weight:400;
+  line-height:1.3;
+  color:#fff;
+  text-wrap:balance;
+}
+.hero-benefits p + p{margin-top:2px;}
+.hero-benefits .ul-white{
+  text-decoration:underline;
+  text-decoration-color:#fff;
+  text-decoration-thickness:1.5px;
+  text-underline-offset:.28em;
+  text-decoration-skip-ink:auto; /* line breaks around the ק / ן tails instead of cutting them */
+}
+.hero-benefits b{
+  font-weight:700;
+  color:#fff;
+  /* soft gold glow around white text */
+  text-shadow:
+    0 0 3px  rgba(242,200,75,.7),
+    0 0 10px rgba(242,200,75,.35);
+}
+
+.hero-benefits:last-child{margin-bottom:0;}
+
+@media (max-height:800px) and (min-width:640px){
+  header.hero{padding:14px var(--sp-6) 20px;}
+  .hero-problem{margin-bottom:12px;}
+}
+
+/* ============================================================
+   MEDIA FRAME COMPONENT
+   One component, used everywhere a screenshot appears. The frame
+   is a fixed-ratio box (--frame-testi / --frame-result-lg / -sm);
+   the image always fills it (object-fit:cover) so every card in a
+   row is the exact same height — no ragged gaps, no orphan
+   whitespace. Per-image --ox/--oy let you nudge the crop later
+   without touching layout.
+   ============================================================ */
+.frame{
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  background:var(--card);
+}
+.frame img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:var(--ox,center) var(--oy,center);
+}
+.frame-testi{aspect-ratio:var(--frame-testi);}
+.frame-result-lg{aspect-ratio:var(--frame-result-lg);}
+.frame-result-sm{aspect-ratio:var(--frame-result-sm);}
+
+/* Meta secondary results recompose on mobile: these are dense data
+   tables, not decorative photos — legibility beats a filled frame.
+   One full-width card at a time, a taller box, and object-fit:contain
+   so no number/column is ever cropped. Desktop/laptop are untouched. */
+@media (max-width:639px){
+  .scroller-meta .item{flex:0 0 92%;}
+  .scroller-meta .frame-result-sm{
+    aspect-ratio:4/3;
+    background:#fff;
+  }
+  .scroller-meta .frame-result-sm img{object-fit:contain;}
+}
+
+/* ============================================================
+   GRID — 2 featured items side by side (testimonials + results
+   both use this) ============================================================ */
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:var(--sp-5);
+}
+@media (max-width:639px){
+  .grid-2{grid-template-columns:1fr;}
+}
+.grid-2.narrow{max-width:900px; margin:0 auto;}
+
+/* ============================================================
+   SCROLLER — one horizontal drag/swipe row component, reused for
+   both the secondary testimonials and secondary results.
+   ============================================================ */
+.scroller-wrap{
+  position:relative;
+  max-width:1080px;
+  margin:0 auto;
+}
+.scroller{
+  display:flex;
+  align-items:stretch;
+  gap:var(--sp-4);
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:4px 4px var(--sp-4);
+  scrollbar-width:none;
+  cursor:grab;
+  user-select:none;
+}
+.scroller.dragging{cursor:grabbing;}
+.scroller::-webkit-scrollbar{display:none;}
+.scroller .item{
+  flex:0 0 31%;
+  scroll-snap-align:start;
+}
+@media (max-width:1023px){
+  .scroller .item{flex:0 0 48%;}
+}
+@media (max-width:639px){
+  .scroller .item{flex:0 0 85%;}
+}
+
+.scroller-arrow{
+  position:absolute;
+  top:45%;
+  transform:translateY(-50%);
+  width:44px;height:44px;
+  border-radius:50%;
+  background:#fff;
+  border:1px solid rgba(31,41,37,.12);
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:var(--green);
+  z-index:2;
+}
+.scroller-arrow.prev{right:-10px;}
+.scroller-arrow.next{left:-10px;}
+@media (max-width:1023px){
+  .scroller-arrow{display:none;}
+}
+.scroller-dots{
+  display:flex;
+  justify-content:center;
+  gap:var(--sp-2);
+  margin-top:var(--sp-2);
+}
+.scroller-dots span{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--ink-soft);
+  opacity:.3;
+}
+.scroller-dots span.active{opacity:1;background:var(--green);}
+
+/* ============================================================
+   VIDEO
+   ============================================================ */
+.video-frame{
+  max-width:880px;
+  margin:0 auto;
+  aspect-ratio:16/9;
+  background:var(--green-light);
+  border-radius:var(--radius-md);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--ink-soft);
+}
+.video-frame .placeholder{display:flex; flex-direction:column; align-items:center; gap:var(--sp-3);}
+.video-frame .icon{
+  width:60px;height:60px;
+  border-radius:50%;
+  background:var(--green);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+section.cta{
+  background:var(--green);
+  color:#fff;
+  text-align:center;
+  padding:var(--sp-20) var(--sp-6);
+}
+section.cta h2{
+  font-size:var(--text-3xl);
+  font-weight:700;
+  margin-bottom:var(--sp-4);
+  max-width:680px;
+  margin-inline:auto;
+}
+section.cta p{
+  font-size:var(--text-base);
+  font-weight:400;
+  max-width:560px;
+  margin:0 auto var(--sp-8);
+  opacity:.85;
+  line-height:1.6;
+}
+.wa-btn{
+  display:inline-block;
+  background:var(--yellow);
+  color:var(--ink);
+  font-weight:700;
+  font-size:var(--text-btn);
+  padding:18px 38px;
+  border-radius:999px;
+  text-decoration:none;
+}
+
+footer{
+  text-align:center;
+  padding:var(--sp-6);
+  color:var(--ink-soft);
+  font-size:var(--text-xs);
+  background:var(--bg);
+}
+/* ============================================================
+   VERSION B — light hero. Same palette, roles swapped:
+   hero on cream with green text + yellow emphasis (like the
+   "הנה הצלחות" headline); testimonials on the soft green that
+   the results section uses.
+   ============================================================ */
+header.hero{background:var(--bg); color:var(--green);}
+.hero-problem{color:var(--green);}
+.hero-problem .hl-em{color:var(--green);}
+.hero-benefits p{color:var(--green);}
+.hero-benefits b{color:var(--yellow); text-shadow:none;}
+.hero-benefits .ul-white{text-decoration-color:var(--green);}
+section.testi-section{background:var(--green-light);}
+</style>
+</head>
+<body>
+
+<nav class="topbar" data-component="topbar" data-variant="sticky-brand-cta">
+  <div class="topbar-brand">
+    <b>צמרת</b><i class="dot" aria-hidden="true">·</i><span>קמפיינים ממומנים לעסקים עם שליחות</span>
+  </div>
+  <a class="topbar-btn" href="https://wa.me/972548080089?text=%D7%A9%D7%99%D7%97%D7%94" target="_blank">לשיחת התאמה</a>
+</nav>
+
+<header class="hero" data-component="hero" data-variant="flowing-benefits">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור <b>זרם של פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ו<b>להתפנות לעשייה</b> שאתם באמת אוהבים,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+
+<section class="testi-section" style="padding-top:40px;" data-component="testimonials" data-variant="featured-scroller">
+  <div class="wrap">
+    <h2 class="h-eyebrow">רוצים לראות איך זה נראה בפועל?</h2>
+    <p class="h-dominant">הנה <span class="hl-yellow">הצלחות</span> שלקוחות משתפים תוך כדי העבודה יחד</p>
+
+    <div class="grid-2 narrow">
+      <div class="frame frame-testi"><img src="images/testimonial1.jpg" alt="עדות לקוח" loading="lazy"></div>
+      <div class="frame frame-testi"><img src="images/testimonial2.jpg" alt="עדות לקוח" loading="lazy"></div>
+    </div>
+
+    <p class="label">עוד סיפורי הצלחה</p>
+
+    <div class="scroller-wrap">
+      <button class="scroller-arrow prev" onclick="scrollEl(testiScroller,1)" aria-label="הקודם">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="scroller-arrow next" onclick="scrollEl(testiScroller,-1)" aria-label="הבא">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="scroller" id="testiScroller">
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial6.jpeg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial3.jpg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial4.jpg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/testimonial7.jpg" alt="עדות לקוח" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy" style="--oy:20%"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-noa.jpg" alt="עדות נועה" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat1.jpg" alt="עדות רינת" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat2.jpg" alt="עדות רינת" loading="lazy"></div></div>
+        <div class="item"><div class="frame frame-testi"><img src="images/quote-rinat3.jpg" alt="עדות רינת" loading="lazy"></div></div>
+      </div>
+      <div class="scroller-dots" id="testiDots">
+        <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--green-light);" data-component="results" data-variant="featured-scroller">
+  <div class="wrap">
+    <h2 class="h-section">ומה רואים בקמפיינים עצמם?</h2>
+    <p class="copy">הצצה לנתונים אמיתיים מתוך מערכת הפרסום של Meta.</p>
+
+    <div class="grid-2">
+      <div class="frame frame-result-lg"><img src="images/case-yaya.jpg" alt="תוצאות קמפיין - יאיא" loading="lazy"></div>
+      <div class="frame frame-result-lg"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי" loading="lazy"></div>
+    </div>
+
+    <p class="label label-sm">תוצאות נוספות מתוך מערכת הפרסום של Meta</p>
+
+    <div class="scroller-wrap">
+      <button class="scroller-arrow prev" onclick="scrollEl(metaScroller,1)" aria-label="הקודם">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="scroller-arrow next" onclick="scrollEl(metaScroller,-1)" aria-label="הבא">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="scroller scroller-meta" id="metaScroller">
+        <div class="item">
+          <div class="frame frame-result-sm"><img src="images/results-weekly-may2025.png" alt="תוצאות קמפיין - 7 ימים" loading="lazy"></div>
+        </div>
+        <div class="item">
+          <div class="frame frame-result-sm"><img src="images/results-mar-may2025.png" alt="תוצאות קמפיין - כחודשיים" loading="lazy"></div>
+        </div>
+        <div class="item">
+          <p class="caption">קמפיין וובינר</p>
+          <div class="frame frame-result-sm"><img src="images/results-2019-2022.jpg" alt="תוצאות קמפיין וובינר - כ-3 שנים" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="scroller-dots" id="metaDots">
+        <span class="active"></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-component="video" data-variant="embed-placeholder">
+  <div class="wrap-narrow">
+    <h2 class="h-section">האם קמפיין ממומן מתאים גם לעסק שלכם?</h2>
+    <p class="copy">הכנתי סרטון שיעזור לכם להבין למי קמפיין ממומן מתאים, מה חשוב שיהיה בעסק לפני שמתחילים, ואיך הוא יכול לעזור לייצר תנועה קבועה של פניות בלי להיות עסוקים כל היום בשיווק.</p>
+    <div class="video-frame">
+      <div class="placeholder">
+        <div class="icon">▶</div>
+        <div>הסרטון יתעדכן כאן בקרוב</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" data-component="cta" data-variant="solid-block">
+  <h2>רוצים ליצור תנועה קבועה יותר של פניות בעסק?</h2>
+  <p>כתבו לי "שיחה" בוואטסאפ ונקבע שיחה קצרה כדי להכיר את העסק ולבדוק התאמה הדדית.</p>
+  <a class="wa-btn" href="https://wa.me/972548080089?text=%D7%A9%D7%99%D7%97%D7%94" target="_blank">לשיחת התאמה בוואטסאפ</a>
+</section>
+
+<footer>צמרת · קמפיינים חכמים לעסקים עם ערך אמיתי</footer>
+
+<script>
+function setupScroller(el, dotsSelector){
+  var dots = document.querySelectorAll(dotsSelector);
+  el.addEventListener('scroll', function(){
+    var items = el.querySelectorAll('.item');
+    var amount = items[0].getBoundingClientRect().width + 16;
+    var idx = Math.round(Math.abs(el.scrollLeft) / amount);
+    idx = Math.max(0, Math.min(items.length-1, idx));
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  });
+}
+function scrollEl(el, dir){
+  var item = el.querySelector('.item');
+  var amount = item.getBoundingClientRect().width + 16;
+  el.scrollBy({left: dir * amount, behavior:'smooth'});
+}
+function enableDrag(el){
+  var isDown = false, startX, startScroll;
+  el.addEventListener('mousedown', function(e){
+    isDown = true; el.classList.add('dragging');
+    startX = e.pageX; startScroll = el.scrollLeft;
+  });
+  window.addEventListener('mouseup', function(){ isDown = false; el.classList.remove('dragging'); });
+  window.addEventListener('mousemove', function(e){
+    if(!isDown) return;
+    e.preventDefault();
+    el.scrollLeft = startScroll - (e.pageX - startX);
+  });
+}
+
+var testiScroller = document.getElementById('testiScroller');
+var metaScroller = document.getElementById('metaScroller');
+setupScroller(testiScroller, '#testiDots span');
+setupScroller(metaScroller, '#metaDots span');
+enableDrag(testiScroller);
+enableDrag(metaScroller);
+</script>
+
+</body>
+</html>
