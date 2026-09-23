@@ -310,10 +310,9 @@ header.hero{
 .hero-benefits b{
   font-weight:700;
   color:#fff;
-  /* soft gold glow around white text */
-  text-shadow:
-    0 0 3px  rgba(242,200,75,.7),
-    0 0 10px rgba(242,200,75,.35);
+  /* thin crisp gold outline around white text (no blur) */
+  -webkit-text-stroke:1px var(--yellow);
+  paint-order:stroke fill;   /* stroke drawn behind the fill, so the white letter stays full width */
 }
 
 .hero-benefits:last-child{margin-bottom:0;}
