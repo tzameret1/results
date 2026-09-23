@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>צמרת | סגנונות פתיחה</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2F6655; --yellow:#F2C84B; --bg:#FAF9F5; --ink:#1F2925; --ink-soft:#59635F;
+  --text-hero:26px; --text-problem:16px;}
+@media (min-width:640px){:root{--text-hero:30px; --text-problem:18px;}}
+@media (min-width:1024px){:root{--text-hero:36px; --text-problem:20px;}}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg); font-family:'Heebo',Tahoma,Arial,sans-serif; color:var(--ink);}
+.intro{text-align:center; padding:28px 16px 8px; font-size:15px; color:var(--ink-soft);}
+.intro h1{font-size:22px; color:var(--green); margin-bottom:6px;}
+.label{text-align:center; padding:28px 16px 10px;}
+.label b{display:block; font-size:18px; color:var(--green);}
+.label span{font-size:14px; color:var(--ink-soft);}
+
+/* hero — same as the live page */
+header.hero{background:var(--green); padding:40px 16px 44px; text-align:center; color:#fff; position:relative; overflow:hidden;}
+.hero > *{position:relative; z-index:1;}
+.hero-problem{max-width:640px; margin:0 auto 22px; font-size:var(--text-problem); line-height:1.35; color:rgba(255,255,255,.92);}
+.hero-problem p{text-wrap:balance;}
+.hl-yellow{color:var(--yellow); font-weight:700;}
+.hl-em{font-weight:700; color:#fff;}
+.hero-benefits{max-width:960px; margin:0 auto;}
+.hero-benefits p{font-size:var(--text-hero); line-height:1.3; text-wrap:balance;}
+.hero-benefits b{font-weight:800;}
+.ul-white{text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:2px;}
+
+
+
+header.hero{background:#1E3F35;}
+/* 1 card */
+.s1{padding:40px 16px !important;}
+.s1 .card{background:#FAF9F5; color:#1E3F35; max-width:900px; margin:0 auto; border-radius:20px; padding:32px 24px; box-shadow:0 10px 40px rgba(0,0,0,.25);}
+.s1 .hero-problem{color:#59635F;} .s1 .hl-em{color:#1E3F35;} .s1 .hl-yellow{color:#C99A1E;}
+.s1 .hero-benefits p{color:#1E3F35;} .s1 .ul-white{text-decoration-color:#1E3F35;}
+/* 2 gold frame */
+.s2 .goldframe{max-width:980px; margin:0 auto; border:1px solid rgba(242,200,75,.55); border-radius:4px; padding:32px 20px; position:relative;}
+.s2 .goldframe::before{content:""; position:absolute; inset:6px; border:1px solid rgba(242,200,75,.2); border-radius:2px; pointer-events:none;}
+/* 3 big word */
+.s3 .bigword{position:absolute !important; z-index:0 !important; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:clamp(120px,24vw,340px); font-weight:800; color:rgba(255,255,255,.045); letter-spacing:-.02em; line-height:1; pointer-events:none;}
+/* 4 two-tone */
+.s4{padding:0 !important;}
+.s4 .strip{background:#FAF9F5; padding:24px 16px;}
+.s4 .strip .hero-problem{color:#3D4541; margin-bottom:0;} .s4 .hl-em{color:#1E3F35;} .s4 .hl-yellow{color:#C99A1E;}
+.s4 .answer{padding:36px 16px 44px;}
+/* 5 checklist */
+.s5 .lead{font-size:var(--text-hero); line-height:1.3; max-width:900px; margin:0 auto 18px; text-wrap:balance;}
+.s5 .lead b{font-weight:800;}
+.s5 .checks{list-style:none; display:inline-flex; flex-direction:column; gap:10px; text-align:right; font-size:calc(var(--text-hero)*.8);}
+.s5 .checks li{display:flex; align-items:center; gap:12px;}
+.s5 .checks b{font-weight:800;}
+.s5 .checks i{flex:none; display:inline-flex; width:1.4em; height:1.4em; border-radius:50%; background:#F2C84B; color:#1E3F35; align-items:center; justify-content:center; font-size:.7em;}
+/* 6 side bar */
+.s6 .side{max-width:900px; margin:0 auto; text-align:right; border-right:4px solid #F2C84B; padding-right:24px;}
+.s6 .hero-problem, .s6 .hero-benefits{margin-right:0; margin-left:0;}
+.s6 .hero-benefits p, .s6 .hero-problem p{text-wrap:pretty;}
+/* 7 wave */
+.s7{padding-bottom:80px !important;}
+.s7 .wave{position:absolute !important; left:0; right:0; bottom:-1px; width:100%; height:60px; display:block;}
+.end{height:40px;}
+</style>
+</head>
+<body>
+<div class="intro"><h1>סגנונות נוספים לפתיחה</h1>כולם על ירוק יער עמוק, עם אותו טקסט. גללי ובחרי מספר.</div>
+<div class="label"><b>1 · כרטיס שמנת על רקע יער</b><span>הטקסט בתוך כרטיס בהיר שצף על הירוק — רך, מזמין, קריא מאוד</span></div>
+<header class="hero s1">
+<div class="card">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</div>
+</header>
+<div class="label"><b>2 · מסגרת זהב דקה</b><span>קו זהב עדין סביב הטקסט — תחושה של הזמנה/יוקרה</span></div>
+<header class="hero s2">
+<div class="goldframe">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</div>
+</header>
+<div class="label"><b>3 · מילת רקע ענקית</b><span>"צמיחה" ענקית ושקופה מאחורי הטקסט — עומק בלי תמונה</span></div>
+<header class="hero s3">
+<div class="bigword" aria-hidden="true">צמיחה</div>
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+
+</header>
+<div class="label"><b>4 · שני גוונים</b><span>השאלה על פס שמנת, התשובה על ירוק — הכאב והפתרון מופרדים ויזואלית</span></div>
+<header class="hero s4">
+<div class="strip">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+</div>
+<div class="answer">
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</div>
+</header>
+<div class="label"><b>5 · רשימה עם וי זהב</b><span>המשפט הראשי למעלה, והיתרונות כרשימת וי — קל לסרוק בעין</span></div>
+<header class="hero s5">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+  <p class="lead">זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span></p>
+  <ul class="checks">
+    <li><i><svg viewBox='0 0 24 24' width='1em' height='1em' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6L9 17l-5-5'/></svg></i><span>לבנות <b>ביטחון ויציבות</b> בעסק</span></li>
+    <li><i><svg viewBox='0 0 24 24' width='1em' height='1em' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6L9 17l-5-5'/></svg></i><span>להתפנות ל<b>עשייה שאתם באמת אוהבים</b></span></li>
+    <li><i><svg viewBox='0 0 24 24' width='1em' height='1em' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6L9 17l-5-5'/></svg></i><span><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי</span></li>
+  </ul>
+
+</header>
+<div class="label"><b>6 · פס זהב בצד</b><span>קו זהב אנכי ליד הפסקה, והטקסט מיושר לימין — נראה כמו מגזין</span></div>
+<header class="hero s6">
+<div class="side">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</div>
+</header>
+<div class="label"><b>7 · גל בתחתית</b><span>הירוק נגמר בקו גלי רך במקום בקו ישר — זורם לסקשן הבא</span></div>
+<header class="hero s7">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0 30 C 240 70 480 0 720 25 S 1200 60 1440 20 V60 H0Z" fill="#FAF9F5"/></svg>
+</header>
+<div class="end"></div>
+</body>
+</html>
