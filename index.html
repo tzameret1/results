@@ -91,7 +91,6 @@
   --text-xl:   var(--step-lg);   /* secondary role: hero-problem, eyebrow */
   --text-2xl:  var(--step-2xl);  /* dominant role: h-dominant, benefits */
   --text-3xl:  var(--step-2xl);  /* h-section starts at 2xl on mobile */
-  --text-sub:  var(--step-lg);   /* h-dominant: always one step BELOW the hero benefits */
   --text-btn:  var(--step-lg);   /* buttons: fixed, not responsive */
 
   /* — Shape / elevation — */
@@ -121,19 +120,16 @@
   :root{
     --text-xl:  var(--step-xl);   /* secondary role caps here — does not grow further */
     --text-3xl: var(--step-3xl);
-    --text-sub: var(--step-xl);
   }
 }
 @media (min-width:1024px){
   :root{
     --text-2xl: var(--step-3xl);  /* dominant role keeps growing past the secondary role */
-    --text-sub: var(--step-2xl);
   }
 }
 @media (min-width:1280px){
   :root{
     --text-2xl: var(--step-4xl);
-    --text-sub: var(--step-3xl);
   }
 }
 
@@ -176,7 +172,7 @@ section{padding:var(--sp-20) 0;}
 }
 .h-dominant{            /* the bold, larger, green "real" headline of a section */
   text-align:center;
-  font-size:var(--text-sub);
+  font-size:var(--text-2xl);
   font-weight:700;
   color:var(--green);
   line-height:1.25;
@@ -278,7 +274,7 @@ header.hero{
   header.hero .hero-problem{font-size:var(--step-base);}  /* one step below the benefits */
 }
 @media (min-width:640px) and (max-width:1023px){
-  header.hero .hero-problem{font-size:var(--step-lg);}    /* keeps a gap under the 20px benefits */
+  header.hero .hero-problem{font-size:var(--step-lg);}    /* keeps a gap under the 24px benefits */
 }
 .hero-problem{
   max-width:640px;
@@ -297,7 +293,7 @@ header.hero{
   margin:0 auto clamp(18px,3vh,28px);
 }
 .hero-benefits p{
-  font-size:var(--text-sub);   /* same size as the "הנה הצלחות" headline */
+  font-size:var(--text-2xl);   /* same size as the "הנה הצלחות" headline */
   font-weight:400;
   line-height:1.3;
   color:#fff;
