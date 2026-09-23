@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>צמרת | אפשרויות רקע</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2F6655; --yellow:#F2C84B; --bg:#FAF9F5; --ink:#1F2925; --ink-soft:#59635F;
+  --text-hero:26px; --text-problem:16px;}
+@media (min-width:640px){:root{--text-hero:30px; --text-problem:18px;}}
+@media (min-width:1024px){:root{--text-hero:36px; --text-problem:20px;}}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg); font-family:'Heebo',Tahoma,Arial,sans-serif; color:var(--ink);}
+.intro{text-align:center; padding:28px 16px 8px; font-size:15px; color:var(--ink-soft);}
+.intro h1{font-size:22px; color:var(--green); margin-bottom:6px;}
+.label{text-align:center; padding:28px 16px 10px;}
+.label b{display:block; font-size:18px; color:var(--green);}
+.label span{font-size:14px; color:var(--ink-soft);}
+
+/* hero — same as the live page */
+header.hero{background:var(--green); padding:40px 16px 44px; text-align:center; color:#fff; position:relative; overflow:hidden;}
+.hero > *{position:relative; z-index:1;}
+.hero-problem{max-width:640px; margin:0 auto 22px; font-size:var(--text-problem); line-height:1.35; color:rgba(255,255,255,.92);}
+.hero-problem p{text-wrap:balance;}
+.hl-yellow{color:var(--yellow); font-weight:700;}
+.hl-em{font-weight:700; color:#fff;}
+.hero-benefits{max-width:960px; margin:0 auto;}
+.hero-benefits p{font-size:var(--text-hero); line-height:1.3; text-wrap:balance;}
+.hero-benefits b{font-weight:800;}
+.ul-white{text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:2px;}
+
+/* 1 — tonal gradient */
+header.hero.v1{background:radial-gradient(ellipse 90% 120% at 50% 45%, #3A7563 0%, #2F6655 45%, #22493D 100%);}
+/* 2 — soft light behind the paragraph */
+.v2::before{content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse 55% 55% at 50% 62%, rgba(255,255,255,.13), transparent 70%);}
+/* 3 — thin grid */
+.v3::before{content:""; position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:40px 40px;}
+/* 4 — dots */
+.v4::before{content:""; position:absolute; inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.14) 1.2px, transparent 1.6px);
+  background-size:22px 22px;}
+/* 5 — deep forest */
+header.hero.v5{background:#1E3F35;}
+/* 6 — light + grid (grid fades out at the edges) */
+.v6::before{content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse 55% 55% at 50% 62%, rgba(255,255,255,.12), transparent 70%);}
+.v6::after{content:""; position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size:40px 40px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 90% at 50% 50%, #000 30%, transparent 100%);
+          mask-image:radial-gradient(ellipse 80% 90% at 50% 50%, #000 30%, transparent 100%);}
+.end{height:40px;}
+</style>
+</head>
+<body>
+<div class="intro"><h1>אפשרויות רקע לפתיחה</h1>גללי ובחרי מספר. הטקסט זהה בכולן — רק הרקע משתנה.</div>
+<div class="label"><b>0 · מה שיש עכשיו</b><span>ירוק אחיד — לנקודת השוואה</span></div>
+<header class="hero v0">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>1 · ירוק בגוונים</b><span>כהה בשוליים, מתבהר מעט לכיוון המרכז</span></div>
+<header class="hero v1">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>2 · אור רך מאחורי הפסקה</b><span>הבהרה עגולה ועדינה שממקדת את העין במסר</span></div>
+<header class="hero v2">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>3 · רשת דקה</b><span>קווים שקופים כמעט לגמרי — מסודר ומקצועי</span></div>
+<header class="hero v3">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>4 · נקודות עדינות</b><span>דפוס נקודות קטן — רך יותר מהרשת</span></div>
+<header class="hero v4">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>5 · ירוק יער עמוק</b><span>כהה יותר — הלבן בולט חזק יותר, תחושה יוקרתית</span></div>
+<header class="hero v5">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>6 · שילוב 2+3 (ההמלצה)</b><span>אור רך מאחורי הפסקה + רשת דקה</span></div>
+<header class="hero v6">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="end"></div>
+</body>
+</html>
