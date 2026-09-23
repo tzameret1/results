@@ -91,6 +91,7 @@
   --text-xl:   var(--step-lg);   /* secondary role: hero-problem, eyebrow */
   --text-2xl:  var(--step-2xl);  /* dominant role: h-dominant, benefits */
   --text-3xl:  var(--step-2xl);  /* h-section starts at 2xl on mobile */
+  --text-sub:  var(--step-lg);   /* h-dominant: always one step BELOW the hero benefits */
   --text-btn:  var(--step-lg);   /* buttons: fixed, not responsive */
 
   /* — Shape / elevation — */
@@ -120,16 +121,19 @@
   :root{
     --text-xl:  var(--step-xl);   /* secondary role caps here — does not grow further */
     --text-3xl: var(--step-3xl);
+    --text-sub: var(--step-xl);
   }
 }
 @media (min-width:1024px){
   :root{
     --text-2xl: var(--step-3xl);  /* dominant role keeps growing past the secondary role */
+    --text-sub: var(--step-2xl);
   }
 }
 @media (min-width:1280px){
   :root{
     --text-2xl: var(--step-4xl);
+    --text-sub: var(--step-3xl);
   }
 }
 
@@ -172,7 +176,7 @@ section{padding:var(--sp-20) 0;}
 }
 .h-dominant{            /* the bold, larger, green "real" headline of a section */
   text-align:center;
-  font-size:var(--text-2xl);
+  font-size:var(--text-sub);
   font-weight:700;
   color:var(--green);
   line-height:1.25;
