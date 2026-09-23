@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>צמרת | רקעי יער</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#2F6655; --yellow:#F2C84B; --bg:#FAF9F5; --ink:#1F2925; --ink-soft:#59635F;
+  --text-hero:26px; --text-problem:16px;}
+@media (min-width:640px){:root{--text-hero:30px; --text-problem:18px;}}
+@media (min-width:1024px){:root{--text-hero:36px; --text-problem:20px;}}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg); font-family:'Heebo',Tahoma,Arial,sans-serif; color:var(--ink);}
+.intro{text-align:center; padding:28px 16px 8px; font-size:15px; color:var(--ink-soft);}
+.intro h1{font-size:22px; color:var(--green); margin-bottom:6px;}
+.label{text-align:center; padding:28px 16px 10px;}
+.label b{display:block; font-size:18px; color:var(--green);}
+.label span{font-size:14px; color:var(--ink-soft);}
+
+/* hero — same as the live page */
+header.hero{background:var(--green); padding:40px 16px 44px; text-align:center; color:#fff; position:relative; overflow:hidden;}
+.hero > *{position:relative; z-index:1;}
+.hero-problem{max-width:640px; margin:0 auto 22px; font-size:var(--text-problem); line-height:1.35; color:rgba(255,255,255,.92);}
+.hero-problem p{text-wrap:balance;}
+.hl-yellow{color:var(--yellow); font-weight:700;}
+.hl-em{font-weight:700; color:#fff;}
+.hero-benefits{max-width:960px; margin:0 auto;}
+.hero-benefits p{font-size:var(--text-hero); line-height:1.3; text-wrap:balance;}
+.hero-benefits b{font-weight:800;}
+.ul-white{text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:2px;}
+
+
+header.hero{background:#1E3F35;}
+/* 2 */ header.hero.f1{background:radial-gradient(ellipse 85% 110% at 50% 50%, #2A5446 0%, #1E3F35 55%, #152E26 100%);}
+/* 3 */ .f2::before{content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse 55% 55% at 50% 62%, rgba(255,255,255,.10), transparent 70%);}
+/* 4 */ .f3::before{content:""; position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:40px 40px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 90% at 50% 50%, #000 30%, transparent 100%);
+          mask-image:radial-gradient(ellipse 80% 90% at 50% 50%, #000 30%, transparent 100%);}
+/* 5 */ .f4::before{content:""; position:absolute; inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.13) 1.2px, transparent 1.6px);
+  background-size:22px 22px;}
+/* 6 */ .f5::before{content:""; position:absolute; inset:0; opacity:.16;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27180%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%27.85%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27/%3E%3CfeColorMatrix%20values%3D%270%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.55%200%27/%3E%3C/filter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url%28%23n%29%27/%3E%3C/svg%3E");}
+/* 7 */ .f6::before{content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(92,160,130,.35), transparent 30%),
+    radial-gradient(circle at 88% 85%, rgba(92,160,130,.28), transparent 32%),
+    radial-gradient(circle at 80% 12%, rgba(242,200,75,.10), transparent 25%);}
+/* 8 */ .f7::before{content:""; position:absolute; inset:0;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%271200%27%20height%3D%27500%27%20viewBox%3D%270%200%201200%20500%27%20preserveAspectRatio%3D%27none%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27white%27%20stroke-opacity%3D%27.13%27%20stroke-width%3D%271.4%27%3E%3Cpath%20d%3D%27M-50%2060%20C%20250%2010%2C%20450%20130%2C%20700%2060%20S%201150%200%2C%201300%2080%27%20/%3E%3Cpath%20d%3D%27M-50%20115%20C%20250%2065%2C%20450%20185%2C%20700%20115%20S%201150%2055%2C%201300%20135%27%20/%3E%3Cpath%20d%3D%27M-50%20170%20C%20250%20120%2C%20450%20240%2C%20700%20170%20S%201150%20110%2C%201300%20190%27%20/%3E%3Cpath%20d%3D%27M-50%20225%20C%20250%20175%2C%20450%20295%2C%20700%20225%20S%201150%20165%2C%201300%20245%27%20/%3E%3Cpath%20d%3D%27M-50%20280%20C%20250%20230%2C%20450%20350%2C%20700%20280%20S%201150%20220%2C%201300%20300%27%20/%3E%3Cpath%20d%3D%27M-50%20335%20C%20250%20285%2C%20450%20405%2C%20700%20335%20S%201150%20275%2C%201300%20355%27%20/%3E%3Cpath%20d%3D%27M-50%20390%20C%20250%20340%2C%20450%20460%2C%20700%20390%20S%201150%20330%2C%201300%20410%27%20/%3E%3Cpath%20d%3D%27M-50%20445%20C%20250%20395%2C%20450%20515%2C%20700%20445%20S%201150%20385%2C%201300%20465%27%20/%3E%3Cpath%20d%3D%27M-50%20500%20C%20250%20450%2C%20450%20570%2C%20700%20500%20S%201150%20440%2C%201300%20520%27%20/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;}
+/* 9 */ .f8::before{content:""; position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2790%27%20height%3D%2790%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27white%27%20stroke-opacity%3D%27.07%27%20stroke-width%3D%271.2%27%3E%3Cpath%20d%3D%27M20%2070%20C20%2045%2040%2030%2060%2025%20C58%2048%2044%2066%2020%2070%20Z%20M20%2070%20L50%2038%27/%3E%3C/g%3E%3C/svg%3E"); background-size:90px 90px;}
+.end{height:40px;}
+</style>
+</head>
+<body>
+<div class="intro"><h1>ירוק יער עמוק — וריאציות</h1>אותו צבע בסיס בכולן. גללי ובחרי מספר.</div>
+<div class="label"><b>1 · יער עמוק חלק</b><span>לנקודת השוואה</span></div>
+<header class="hero f0">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>2 · יער בגוונים</b><span>מרכז מעט בהיר יותר, שוליים כהים — עומק כמו תאורת במה</span></div>
+<header class="hero f1">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>3 · יער + אור רך</b><span>הבהרה עדינה מאחורי הפסקה הראשית</span></div>
+<header class="hero f2">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>4 · יער + רשת דקה</b><span>רשת שקופה שנעלמת לכיוון השוליים</span></div>
+<header class="hero f3">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>5 · יער + נקודות</b><span>נקודות קטנות ועדינות</span></div>
+<header class="hero f4">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>6 · יער + גרעיניות</b><span>מרקם של נייר/בד — חם ואורגני</span></div>
+<header class="hero f5">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>7 · יער + כתמי אור</b><span>כתמים רכים ומטושטשים בירוק בהיר ונגיעה של זהב</span></div>
+<header class="hero f6">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>8 · יער + קווי גובה</b><span>קווים גליים עדינים, כמו מפה טופוגרפית — תחושת תנועה וצמיחה</span></div>
+<header class="hero f7">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="label"><b>9 · יער + עלים</b><span>דפוס עלים קטנים ושקופים — מתחבר ל"צמרת"</span></div>
+<header class="hero f8">
+  <div class="hero-problem">
+    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
+    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+  </div>
+
+  <div class="hero-benefits">
+    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
+    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
+    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
+    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  </div>
+</header>
+<div class="end"></div>
+</body>
+</html>
