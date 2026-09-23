@@ -268,6 +268,12 @@ header.hero{
   text-align:center;
   color:#fff;
 }
+/* phones: slightly smaller benefits + narrower gutter so each benefit
+   stays on one line instead of breaking mid-phrase */
+@media (max-width:639px){
+  header.hero{padding-inline:var(--sp-4);}
+  header.hero .hero-benefits p{font-size:var(--step-xl);}
+}
 .hero-problem{
   max-width:640px;
   margin:0 auto clamp(16px,3vh,26px);
@@ -296,7 +302,8 @@ header.hero{
   text-decoration:underline;
   text-decoration-color:#fff;
   text-decoration-thickness:1.5px;
-  text-underline-offset:.4em;   /* clears the descenders of ק / ן */
+  text-underline-offset:.28em;
+  text-decoration-skip-ink:auto; /* line breaks around the ק / ן tails instead of cutting them */
 }
 .hero-benefits b{
   font-weight:700;
