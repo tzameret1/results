@@ -237,7 +237,16 @@ header.hero{
   text-wrap:balance;
 }
 .hero-benefits p + p{margin-top:2px;}
-.hero-benefits b{font-weight:700; color:#fff;}
+.hero-benefits b{
+  font-weight:700;
+  color:#fff;
+  /* gold outline around white text (text-shadow ring — works in every browser) */
+  text-shadow:
+     1px  0   0 var(--yellow), -1px  0   0 var(--yellow),
+     0    1px 0 var(--yellow),  0   -1px 0 var(--yellow),
+     1px  1px 0 var(--yellow), -1px -1px 0 var(--yellow),
+     1px -1px 0 var(--yellow), -1px  1px 0 var(--yellow);
+}
 
 .hero-closing{
   max-width:560px;
