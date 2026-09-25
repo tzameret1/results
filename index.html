@@ -198,6 +198,12 @@ section{padding:var(--sp-20) 0;}
   margin:var(--sp-10) 0 var(--sp-4);
 }
 .label.label-sm{font-size:var(--text-xl);}
+.label-hint{               /* small helper line right under a .label */
+  text-align:center;
+  font-size:var(--text-sm);
+  color:var(--ink-soft);
+  margin:calc(-1 * var(--sp-3)) 0 var(--sp-4);
+}
 .caption{                /* tiny caption above/below a media card */
   text-align:center;
   font-size:var(--text-base);
@@ -663,6 +669,7 @@ footer{
     </div>
 
     <p class="label">עוד סיפורי הצלחה</p>
+    <p class="label-hint">(לחצו על התמונה להגדלה)</p>
 
     <div class="scroller-wrap">
       <button class="scroller-arrow prev" onclick="scrollEl(testiScroller,1)" aria-label="הקודם">
