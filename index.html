@@ -551,14 +551,16 @@ header.hero{
   margin:auto;                   /* centred when it fits, top-aligned when it overflows */
   flex-shrink:0;                 /* zoomed size must not be squeezed by the flex stage */
   display:block;
-  width:min(100%, 1100px);
+  width:auto;
   height:auto;
+  max-width:min(100%, 1400px);
+  max-height:calc(100vh - 122px);   /* whole screenshot visible without scrolling */
+  max-height:calc(100dvh - 122px);
   border-radius:8px;
   background:#fff;
   cursor:zoom-in;
 }
-.lb-stage img.tall{width:min(100%, 560px);}
-.lb-stage img.zoomed{max-width:none; cursor:zoom-out;}   /* width set in JS: max(original size, 2x fitted) */
+.lb-stage img.zoomed{max-width:none; max-height:none; cursor:zoom-out;}   /* width set in JS: max(original size, 2x fitted) */
 .lb-close, .lb-nav{
   position:absolute; z-index:2;
   width:44px; height:44px;
@@ -695,7 +697,7 @@ footer{
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </button>
       <div class="scroller" id="testiScroller">
-        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות אמיר"><img src="images/quote-amir.jpg" alt="עדות אמיר" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
+        <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות אמיר"><img src="images/quote-amir-short.jpg" alt="עדות אמיר" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
         <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial5.jpeg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
         <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial3.jpg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
         <div class="item"><button type="button" class="frame frame-testi" data-lb="testi" aria-label="הגדלה: עדות לקוח"><img src="images/testimonial1.jpg" alt="עדות לקוח" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button></div>
@@ -719,13 +721,13 @@ footer{
     <div class="grid-2">
       <div class="result-card">
           <div class="result-head"><b>יאיא · מטפל בדכאון וחרדה</b><span>1.2.26–30.4.26 (3 חודשים)</span></div>
-          <div class="kpis"><div class="kpi"><b>201</b><span>לידים</span></div><div class="kpi"><b>₪30.01</b><span>עלות לליד</span></div><div class="kpi"><b>₪6,031.40</b><span>הוצאה כוללת</span></div></div>
+          <div class="kpis kpis-2"><div class="kpi"><b>201</b><span>סה״כ לידים</span></div><div class="kpi"><b>₪30.01</b><span>עלות ממוצעת לליד</span></div></div>
           <p class="result-note">עלות לליד בקמפיין הקודם: <b>₪60.57</b></p>
           <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - יאיא"><img src="images/case-yaya.jpg" alt="תוצאות קמפיין - יאיא" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
         </div>
       <div class="result-card">
           <div class="result-head"><b>רחלי · מעסה ומטפלת במגע</b><span>1.2.26–30.4.26 (3 חודשים)</span></div>
-          <div class="kpis"><div class="kpi"><b>437</b><span>לידים</span></div><div class="kpi"><b>₪10.17</b><span>עלות לליד</span></div><div class="kpi"><b>₪4,443.03</b><span>הוצאה כוללת</span></div></div>
+          <div class="kpis kpis-2"><div class="kpi"><b>437</b><span>סה״כ לידים</span></div><div class="kpi"><b>₪10.17</b><span>עלות ממוצעת לליד</span></div></div>
           <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - רחלי"><img src="images/case-racheli.jpg" alt="תוצאות קמפיין - רחלי" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
         </div>
     </div>
@@ -743,21 +745,21 @@ footer{
         <div class="item">
         <div class="result-card">
           <div class="result-head"><b>7 ימים</b><span>20–26 במאי 2025</span></div>
-          <div class="kpis"><div class="kpi"><b>21</b><span>לידים</span></div><div class="kpi"><b>₪20.84</b><span>עלות לליד</span></div><div class="kpi"><b>₪437.70</b><span>הוצאה כוללת</span></div></div>
+          <div class="kpis kpis-2"><div class="kpi"><b>21</b><span>סה״כ לידים</span></div><div class="kpi"><b>₪20.84</b><span>עלות ממוצעת לליד</span></div></div>
           <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - 7 ימים"><img src="images/results-weekly-may2025.png" alt="תוצאות קמפיין - 7 ימים" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
         </div>
         </div>
         <div class="item">
         <div class="result-card">
           <div class="result-head"><b>כחודשיים</b><span>30.3.25–27.5.25</span></div>
-          <div class="kpis"><div class="kpi"><b>431</b><span>לידים</span></div><div class="kpi"><b>₪6.95</b><span>עלות לליד</span></div><div class="kpi"><b>₪2,993.61</b><span>הוצאה כוללת</span></div></div>
+          <div class="kpis kpis-2"><div class="kpi"><b>431</b><span>סה״כ לידים</span></div><div class="kpi"><b>₪6.95</b><span>עלות ממוצעת לליד</span></div></div>
           <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין - כחודשיים"><img src="images/results-mar-may2025.png" alt="תוצאות קמפיין - כחודשיים" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
         </div>
         </div>
         <div class="item">
         <div class="result-card">
           <div class="result-head"><b>קמפיין וובינר · כ-3 שנים</b><span>7.6.2019–7.7.2022</span></div>
-          <div class="kpis kpis-2"><div class="kpi"><b>2,648</b><span>לידים</span></div><div class="kpi"><b>₪6.59</b><span>עלות לליד</span></div></div>
+          <div class="kpis kpis-2"><div class="kpi"><b>2,648</b><span>סה״כ לידים</span></div><div class="kpi"><b>₪6.59</b><span>עלות ממוצעת לליד</span></div></div>
           <button type="button" class="frame frame-result" data-lb="results" aria-label="הגדלה: תוצאות קמפיין וובינר - כ-3 שנים"><img src="images/results-2019-2022.jpg" alt="תוצאות קמפיין וובינר - כ-3 שנים" loading="lazy"><i class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></i></button>
         </div>
         </div>
