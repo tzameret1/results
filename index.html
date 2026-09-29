@@ -18,7 +18,7 @@
    Find its CSS by searching that variant name below.
 
    • topbar          / sticky-brand-cta         → .topbar, .topbar-btn
-   • hero            / flowing-benefits        → .hero-problem, .hero-benefits
+   • hero            / statement               → .hero-brush, .hero-title, .hero-stroke, .hero-sub
    • testimonials    / featured-scroller        → .grid-2, .scroller, .frame-testi
    • results         / kpi-cards                → .result-card, .kpis, .scroller
    • lightbox        / zoom-viewer              → .lb (opens any [data-lb] frame)
@@ -267,65 +267,98 @@ body{padding-top:var(--bar-h);}
 }
 
 /* ============================================================
-   HERO — flowing text, no box. Problem (secondary) → Benefits
-   (dominant) → Closing line (quiet, hairline-separated). Hierarchy
-   is built with size/weight/color only — no borders/underlines.
+   HERO — statement. Problem (brush-highlighted opener + two quiet
+   lines) → teal divider → big headline with a hand-drawn teal stroke
+   → supporting paragraph. Thin teal arcs decorate the corners.
    ============================================================ */
+:root{
+  --lime:#C9DC8F;          /* hero accent: headline highlight */
+  --lime-brush:#D3E3A0;    /* brush behind the opener */
+  --teal:#5FBFB0;          /* divider, stroke, arcs */
+}
 header.hero{
+  position:relative;
+  overflow:hidden;
   background:var(--green);
-  padding:clamp(18px,4vh,36px) var(--sp-6) clamp(24px,5vh,44px);
+  padding:clamp(28px,5vh,52px) var(--sp-6) clamp(32px,6vh,60px);
   text-align:center;
   color:#fff;
 }
-/* phones: narrower gutter so each benefit stays on one line */
-@media (max-width:639px){
-  header.hero{padding-inline:var(--sp-4);}
-  header.hero .hero-problem{font-size:var(--step-base);}  /* one step below the benefits */
+header.hero::before{              /* corner arcs */
+  content:"";
+  position:absolute; inset:0;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%201200%20500%27%20preserveAspectRatio%3D%27none%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%235FBFB0%27%20stroke-opacity%3D%27.55%27%20stroke-width%3D%271.6%27%20vector-effect%3D%27non-scaling-stroke%27%3E%3Cpath%20d%3D%27M-40%20140%20C%2090%20220%20150%20360%20170%20520%27/%3E%3Cpath%20d%3D%27M-60%20270%20C%2040%20320%2090%20420%20100%20520%27/%3E%3Cpath%20d%3D%27M1240%20150%20C%201110%20230%201050%20370%201030%20520%27/%3E%3Cpath%20d%3D%27M1260%20280%20C%201160%20330%201110%20430%201100%20520%27/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;
+  pointer-events:none;
 }
-@media (min-width:640px) and (max-width:1023px){
-  header.hero .hero-problem{font-size:var(--step-lg);}    /* keeps a gap under the benefits */
-}
+header.hero > *{position:relative;}
+
 .hero-problem{
   max-width:640px;
-  margin:0 auto clamp(16px,3vh,26px);
+  margin:0 auto;
   font-size:var(--text-xl);
-  font-weight:400;
-  line-height:1.35;
+  line-height:1.45;
   color:rgba(255,255,255,.92);
 }
 .hero-problem p{text-wrap:balance;}
-.hl-yellow{color:var(--yellow); font-weight:700;}
-.hero-problem .hl-em{font-weight:700; color:#fff;}
-
-.hero-benefits{
-  max-width:960px;   /* wide enough that each benefit stays on one line at 48px */
-  margin:0 auto clamp(18px,3vh,28px);
+.hero-brush{
+  display:inline-block;
+  margin-bottom:var(--sp-2);
+  padding:4px 26px 6px;
+  color:var(--green);
+  font-weight:500;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20400%2060%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20fill%3D%27%23D3E3A0%27%20d%3D%27M6%2016%20C%2060%206%20140%2010%20210%207%20S%20350%204%20394%2010%20L%20380%2020%20L%20398%2026%20L%20384%2034%20L%20396%2044%20C%20330%2052%20250%2049%20170%2052%20S%2050%2056%208%2050%20L%2018%2041%20L%202%2033%20L%2016%2025%20Z%27/%3E%3Cpath%20fill%3D%27%23C6DA8A%27%20opacity%3D%27.55%27%20d%3D%27M30%2014%20C%20120%209%20260%2012%20360%2011%20L%20350%2017%20C%20250%2017%20120%2016%2034%2019%20Z%27/%3E%3Cpath%20fill%3D%27%23C6DA8A%27%20opacity%3D%27.5%27%20d%3D%27M40%2044%20C%20140%2042%20260%2045%20370%2041%20L%20364%2047%20C%20250%2050%20140%2049%2044%2048%20Z%27/%3E%3C/svg%3E") center/100% 100% no-repeat;
 }
-.hero-benefits p{
-  font-size:var(--text-hero);  /* the page's largest text — one step above the section headlines */
+.hero-brush b{font-weight:800;}
+.hl-yellow{color:var(--yellow); font-weight:700;}
+
+.hero-divider{
+  width:72px; height:3px;
+  margin:clamp(18px,3vh,28px) auto;
+  border-radius:2px;
+  background:var(--teal);
+}
+
+.hero-title{
+  max-width:1000px;
+  margin:0 auto;
+  font-size:var(--text-hero);
   font-weight:400;
-  line-height:1.3;
+  line-height:1.25;
   color:#fff;
   text-wrap:balance;
 }
-.hero-benefits p + p{margin-top:2px;}
-.hero-benefits .ul-white{
-  text-decoration:underline;
-  text-decoration-color:#fff;
-  text-decoration-thickness:1.5px;
-  text-underline-offset:2px;    /* hugs the baseline */
-  text-decoration-skip-ink:auto; /* line breaks around the ק / ן tails instead of cutting them */
-}
-.hero-benefits b{
-  font-weight:800;   /* plain heavy white — no outline/glow */
-  color:#fff;
+.hero-title b{font-weight:800;}
+.hero-title .lime{color:var(--lime); font-weight:800;}
+.hero-stroke{
+  display:block;
+  width:min(70%, 520px);
+  height:14px;
+  margin:clamp(10px,2vh,16px) auto clamp(20px,3.5vh,32px);
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%2024%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20fill%3D%27%235FBFB0%27%20d%3D%27M4%2014%20C%20120%206%20300%204%20596%209%20C%20598%2011%20597%2013%20594%2013%20C%20380%2012%20200%2015%2060%2019%20C%2040%2020%2020%2020%206%2018%20C%202%2017%202%2015%204%2014%20Z%27/%3E%3Cpath%20fill%3D%27%238FD6CB%27%20opacity%3D%27.6%27%20d%3D%27M40%2012%20C%20200%207%20400%207%20560%209%20L%20556%2011%20C%20400%2010%20200%2011%2044%2014%20Z%27/%3E%3C/svg%3E") center/100% 100% no-repeat;
 }
 
-.hero-benefits:last-child{margin-bottom:0;}
+.hero-sub{
+  max-width:720px;
+  margin:0 auto;
+  font-size:var(--text-xl);
+  line-height:1.55;
+  color:rgba(255,255,255,.92);
+}
+.hero-sub p{text-wrap:balance;}
+.hero-sub b{font-weight:700; color:#fff; white-space:nowrap;}
 
+@media (max-width:639px){
+  header.hero{padding-inline:var(--sp-5);}
+  header.hero::before{background-size:100% 100%;}
+  .hero-problem{font-size:var(--step-base);}
+  .hero-brush{padding:4px 20px 6px;}
+  .hero-title{font-size:30px; font-weight:800;}   /* phones: whole headline heavy, like the mockup */
+  .hero-sub{font-size:var(--step-lg);}
+  .hero-title br, .hero-sub br{display:none;}   /* let phones wrap naturally */
+}
 @media (max-height:800px) and (min-width:640px){
-  header.hero{padding:14px var(--sp-6) 20px;}
-  .hero-problem{margin-bottom:12px;}
+  header.hero{padding-top:18px; padding-bottom:26px;}
+  .hero-divider{margin:14px auto;}
 }
 
 /* ============================================================
@@ -661,18 +694,23 @@ footer{
   <a class="topbar-btn" href="https://wa.me/972548080089?text=%D7%A9%D7%99%D7%97%D7%94" target="_blank">לשיחת התאמה</a>
 </nav>
 
-<header class="hero" data-component="hero" data-variant="flowing-benefits">
+<header class="hero" data-component="hero" data-variant="statement">
   <div class="hero-problem">
-    <p>יש לכם <span class="hl-yellow">עסק עם שליחות</span>,</p>
+    <p><span class="hero-brush">יש לכם <b>עסק עם שליחות</b>,</span></p>
     <p>אבל במקום להרגיש שהעסק גדל ומתבסס,</p>
-    <p>אתם עדיין <span class="hl-em">דואגים</span> מאיפה יגיעו הלקוחות הבאים?</p>
+    <p>אתם עדיין דואגים מאיפה יגיעו הלקוחות הבאים?</p>
   </div>
 
-  <div class="hero-benefits">
-    <p>זה הזמן ליצור זרם של <b>פניות איכותיות</b> לעסק <span class="ul-white">כבר בזמן הקרוב</span>,</p>
-    <p>לבנות <b>ביטחון ויציבות</b> בעסק,</p>
-    <p>ולהתפנות ל<b>עשייה שאתם באמת אוהבים</b>,</p>
-    <p><span class="ul-white">בלי</span> להשקיע שעות בשיווק היומיומי.</p>
+  <div class="hero-divider" aria-hidden="true"></div>
+
+  <h1 class="hero-title">הגיע הזמן <b>להגיע ליותר אנשים,</b><br>
+    להשפיע יותר <span class="lime">ולראות את העסק שלכם גדל.</span></h1>
+  <span class="hero-stroke" aria-hidden="true"></span>
+
+  <div class="hero-sub">
+    <p>קמפיין ממומן יכול לעזור לכם ליצור תנועה זורמת מקהל חדש,<br>
+    לקבל <b>פניות איכותיות</b> כבר בזמן הקרוב —<br>
+    בלי להשקיע כל כך הרבה זמן ואנרגיה בשיווק היומיומי.</p>
   </div>
 </header>
 
