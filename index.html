@@ -59,6 +59,9 @@
   --ink-soft:#59635F;      /* secondary text */
   --bg:#FAF9F5;            /* page background */
   --card:#FFFFFF;          /* card background */
+  --head-ink:#1E3A46;      /* headings on light sections */
+  --head-soft:#2C4A52;     /* eyebrow / small heading */
+  --head-accent:#9CB84E;   /* accent word inside a heading */
 
   /* — Spacing scale (4px base) — everything else references this */
   --sp-1:4px;   --sp-2:8px;   --sp-3:12px;  --sp-4:16px;
@@ -198,6 +201,19 @@ section{padding:var(--sp-20) 0;}
   margin:var(--sp-10) 0 var(--sp-4);
 }
 .label.label-sm{font-size:var(--text-xl);}
+/* section headings — colors from the hero mockup: deep ink-teal
+   text, olive-lime accent word, small teal rule above each section's
+   opening heading. Applies to every light section on the page. */
+.h-eyebrow{color:var(--head-soft);}
+.h-dominant, .h-section, .label{color:var(--head-ink);}
+.h-dominant .hl-yellow, .h-section .hl-yellow{color:var(--head-accent);}
+section:not(.cta) .wrap > :first-child::before,
+section:not(.cta) .wrap-narrow > :first-child::before{
+  content:""; display:block;
+  width:56px; height:3px; border-radius:2px;
+  margin:0 auto var(--sp-4);
+  background:var(--teal);
+}
 .label-hint{               /* small helper line right under a .label */
   text-align:center;
   font-size:var(--text-sm);
@@ -345,7 +361,13 @@ header.hero > *{position:relative;}
   color:rgba(255,255,255,.92);
 }
 .hero-sub p{text-wrap:balance;}
-.hero-sub b{font-weight:700; color:#fff; white-space:nowrap;}
+.hero-sub b{font-weight:700; color:#fff;}
+.hero-sub .ul{
+  text-decoration:underline;
+  text-decoration-thickness:1.5px;
+  text-underline-offset:3px;
+  text-decoration-skip-ink:auto;
+}
 
 @media (max-width:639px){
   header.hero{padding-inline:var(--sp-5);}
@@ -709,8 +731,8 @@ footer{
 
   <div class="hero-sub">
     <p>קמפיין ממומן יכול לעזור לכם ליצור תנועה זורמת מקהל חדש,<br>
-    לקבל <b>פניות איכותיות</b> כבר בזמן הקרוב —<br>
-    בלי להשקיע כל כך הרבה זמן ואנרגיה בשיווק היומיומי.</p>
+    לקבל <b>פניות איכותיות כבר בזמן הקרוב</b>,<br>
+    <span class="ul">בלי</span> להשקיע זמן ואנרגיה בשיווק היומיומי.</p>
   </div>
 </header>
 
