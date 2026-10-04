@@ -347,9 +347,28 @@ section.video{background:var(--bg);}
 .video-frame iframe{display:block; width:100%; height:100%; border:0;}
 .yt{display:block; position:relative; width:100%; height:100%; border:0; padding:0; background:#000; cursor:pointer;}
 .yt img{display:block; width:100%; height:100%; object-fit:cover;}
+/* cover: the video frame has its own burned-in text on the left, so a
+   deep-green panel with the title sits over that side; the face on the
+   right stays visible. Nothing is edited in the image itself. */
+.yt::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to right, #1F4E41 0%, #1F4E41 59%, rgba(31,78,65,0) 71%);
+}
+.yt-cover{
+  position:absolute; top:0; bottom:0; left:0; width:56%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:clamp(10px, 2.2vw, 24px);
+  padding:0 clamp(10px, 2.5vw, 32px);
+  text-align:center;
+}
+.yt-title{
+  color:#fff; font-weight:700; line-height:1.25;
+  font-size:clamp(17px, 3.6vw, 34px);
+  text-wrap:balance;
+}
 .yt-play{
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:76px; height:76px; border-radius:50%;
+  flex:none;
+  width:clamp(52px, 8vw, 76px); height:clamp(52px, 8vw, 76px); border-radius:50%;
   background:var(--lime); color:var(--deep-ink);
   display:flex; align-items:center; justify-content:center;
   box-shadow:0 6px 24px rgba(0,0,0,.35);
@@ -583,7 +602,10 @@ footer{text-align:center; padding:var(--sp-6); font-size:12px; color:var(--ink-s
     <div class="video-frame" id="video">
       <button type="button" class="yt" id="ytPlay" data-id="VXtGXnnAlhg" aria-label="הפעלת הסרטון: האם קמפיין ממומן מתאים לעסק שלכם?">
         <img src="https://i.ytimg.com/vi/VXtGXnnAlhg/maxresdefault.jpg" alt="" loading="lazy">
-        <span class="yt-play" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="yt-cover">
+          <span class="yt-title">האם קמפיין ממומן מתאים לעסק שלכם?</span>
+          <span class="yt-play" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        </span>
       </button>
     </div>
   </div>
