@@ -175,8 +175,15 @@ header.hero > *{position:relative;}
 
 .hero-sub{max-width:34ch; margin:0 auto; font-size:var(--fs-lead); line-height:1.6; color:rgba(251,248,241,.9);}
 @media (min-width:768px){ .hero-sub{max-width:none;} }
-.hero-sub b{font-weight:600; color:#fff;}
-.hero-sub .ul{text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:3px;}
+.hero-lead{color:#fff; font-weight:600; margin-bottom:var(--sp-2);}
+/* check list: a centred block whose lines stay right-aligned (RTL) */
+.hero-list{list-style:none; display:inline-flex; flex-direction:column; gap:6px; text-align:right;}
+.hero-list li{display:flex; align-items:center; gap:10px;}
+.hero-list i{
+  flex:none; width:22px; height:22px; border-radius:50%;
+  background:var(--lime); color:var(--deep-ink);
+  display:inline-flex; align-items:center; justify-content:center;
+}
 
 /* phones: the hero gives up vertical padding and gaps (not type size)
    so the proof section starts inside the first screen */
@@ -187,10 +194,10 @@ header.hero > *{position:relative;}
   .hero-rule{margin:10px auto;}
   .hero-title{line-height:1.18;}
   .hero-stroke{height:11px; margin:2px auto 12px;}
-  .hero-sub{line-height:1.5;}
+  .hero-sub{line-height:1.45;}
+  .hero-list{gap:4px;}
   section.testimonials{padding-top:18px;}
   .testimonials .sec-head{margin-bottom:var(--sp-3);}
-  .testimonials .sec-head::before{display:none;}   /* decorative rule costs height on the first screen */
   .testimonials .eyebrow{margin-bottom:2px;}
 }
 
@@ -237,7 +244,9 @@ header.hero > *{position:relative;}
 /* ============================================================
    TESTIMONIALS · 2 columns from tablet up, 1 per row on phones
    ============================================================ */
-section.testimonials{background:var(--bg); padding-top:var(--sp-16);}
+section.testimonials{background:var(--bg); padding-top:calc(var(--fs-body) * 1.65 * 1.5); padding-bottom:var(--sp-12);}
+.testimonials .sec-head::before{display:none;}
+@media (max-width:767px){ section.testimonials{padding-top:18px; padding-bottom:var(--sp-10);} }  /* phones were already tighter: keep the proofs on the first screen */
 .testi-grid{
   display:grid; grid-template-columns:1fr; gap:var(--sp-5);
   max-width:1040px; margin:0 auto;
@@ -259,7 +268,8 @@ section.testimonials{background:var(--bg); padding-top:var(--sp-16);}
 /* ============================================================
    RESULTS
    ============================================================ */
-section.results{background:var(--bg-alt);}
+section.results{background:var(--bg-alt); padding-top:var(--sp-12);}
+@media (max-width:767px){ section.results{padding-top:var(--sp-10);} }
 .results .case:last-of-type{margin-bottom:var(--sp-10);}
 .results .more-wrap{margin-top:0;}
 /* CASE: business → goal → result → the two numbers → period → Meta proof */
@@ -467,9 +477,15 @@ footer{text-align:center; padding:var(--sp-6); font-size:12px; color:var(--ink-s
     להשפיע יותר <span class="hl">ולראות את העסק שלכם גדל.</span></h1>
   <span class="hero-stroke" aria-hidden="true"></span>
 
-  <p class="hero-sub">קמפיין ממומן יכול לעזור לכם ליצור תנועה זורמת מקהל חדש,<br class="br-lg">
-    לקבל <b>פניות איכותיות כבר בזמן הקרוב</b>,<br class="br-lg">
-    <span class="ul">בלי</span> להשקיע כל כך הרבה זמן ואנרגיה בשיווק היומיומי.</p>
+  <div class="hero-sub">
+    <p class="hero-lead">בעזרת קמפיין ממומן תוכלו:</p>
+    <ul class="hero-list">
+      <li><i aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i><span>ליצור תנועה זורמת מקהל חדש</span></li>
+      <li><i aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i><span>לקבל פניות איכותיות כבר בזמן הקרוב</span></li>
+      <li><i aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i><span>להתפנות לעשייה שאתם באמת אוהבים</span></li>
+      <li><i aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></i><span>לחסוך זמן ואנרגיה על השיווק היומיומי</span></li>
+    </ul>
+  </div>
 </header>
 
 <!-- 2 + 3. TESTIMONIALS -->
@@ -477,7 +493,7 @@ footer{text-align:center; padding:var(--sp-6); font-size:12px; color:var(--ink-s
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">רוצים לראות איך זה נראה בפועל?</p>
-      <h2>הנה <span class="brush">הצלחות</span> של לקוחות שמשתפים תוך כדי העבודה יחד</h2>
+      <h2><span class="brush">הצלחות</span> של לקוחות שמשתפים תוך כדי העבודה יחד</h2>
       <p class="sec-hint">(לחצו על התמונה להגדלה)</p>
     </div>
 
@@ -508,7 +524,6 @@ footer{text-align:center; padding:var(--sp-6); font-size:12px; color:var(--ink-s
 <section class="results">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">ומה קורה מאחורי ההודעות האלה?</p>
       <h2>הצצה <span class="brush">לתוצאות</span> אמיתיות מתוך הקמפיינים</h2>
       <p class="sec-hint">(לחצו על התמונה להגדלה)</p>
     </div>
