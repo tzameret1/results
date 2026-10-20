@@ -279,6 +279,9 @@ section.results{background:var(--bg-alt); padding-top:var(--sp-12);}
 .case-line{color:var(--ink); line-height:1.45; margin-bottom:2px;}
 .case-line b{font-weight:700; color:var(--ink);}
 .kpis{display:flex; justify-content:center; gap:var(--sp-10); margin-top:var(--sp-6);}
+.case .kpis{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--sp-4); max-width:560px; margin-inline:auto;}
+.case .kpi span{line-height:1.3;}
+@media (max-width:420px){ .case .kpi b{font-size:22px;} .case .kpis{gap:var(--sp-2);} }
 .kpi b{display:block; font-size:var(--fs-kpi); font-weight:700; color:var(--navy); line-height:1.1; direction:ltr; text-align:center;}
 .kpi span{display:block; font-size:var(--fs-small); color:var(--ink-soft); margin-top:4px;}
 .case-meta{font-size:var(--fs-small); color:var(--ink-soft); margin-top:var(--sp-3);}
@@ -531,8 +534,8 @@ footer{text-align:center; padding:var(--sp-6); font-size:12px; color:var(--ink-s
         <h3 class="case-name">תחום: עיסוי וטיפול במגע</h3>
         <p class="case-line"><b>מטרה:</b> לבנות קליניקה פרטית.</p>
         <p class="case-line"><b>תוצאה:</b> מעבר מעבודה בספא ללו״ז מלא עד 3 שבועות קדימה בקליניקה הפרטית.</p>
-        <div class="kpis"><div class="kpi"><b>145</b><span>פניות בחודש בממוצע</span></div><div class="kpi"><b>₪10.17</b><span>עלות ממוצעת לפנייה</span></div></div>
-        <p class="case-meta">מבוסס על תקופה של 3 חודשים (1.2.26 עד 30.4.26)</p>
+        <div class="kpis"><div class="kpi"><b>437</b><span>סה״כ לידים ב-3&nbsp;חודשים</span></div><div class="kpi"><b>145</b><span>ממוצע לידים בחודש</span></div><div class="kpi"><b>₪10.17</b><span>ממוצע מחיר לליד</span></div></div>
+        <p class="case-meta">תקופה: 1.2.26 עד 30.4.26</p>
       </div>
       <button type="button" class="meta-preview" data-lb="case-racheli.jpg" data-full="images/case-racheli.jpg" data-alt="תוצאות קמפיין בתחום עיסוי וטיפול במגע" aria-label="לצפייה בצילום המלא">
         <span class="meta-tiles">
@@ -548,8 +551,8 @@ footer{text-align:center; padding:var(--sp-6); font-size:12px; color:var(--ink-s
         <h3 class="case-name">תחום: טיפול בדכאון וחרדה</h3>
         <p class="case-line"><b>מטרה:</b> לשפר קמפיין קיים שנוהל קודם על ידי איש שיווק אחר.</p>
         <p class="case-line"><b>תוצאה:</b> עלות הפנייה ירדה משמעותית מכ־60 ₪ לכ־30 ₪.</p>
-        <div class="kpis"><div class="kpi"><b>67</b><span>פניות בחודש בממוצע</span></div><div class="kpi"><b>₪30.01</b><span>עלות ממוצעת לפנייה</span></div></div>
-        <p class="case-meta">מבוסס על תקופה של 3 חודשים (1.2.26 עד 30.4.26)</p>
+        <div class="kpis"><div class="kpi"><b>201</b><span>סה״כ לידים ב-3&nbsp;חודשים</span></div><div class="kpi"><b>67</b><span>ממוצע לידים בחודש</span></div><div class="kpi"><b>₪30.01</b><span>ממוצע מחיר לליד</span></div></div>
+        <p class="case-meta">תקופה: 1.2.26 עד 30.4.26</p>
       </div>
       <button type="button" class="meta-preview three" data-lb="case-yaya.jpg" data-full="images/case-yaya.jpg" data-alt="תוצאות קמפיין בתחום טיפול בדכאון וחרדה" aria-label="לצפייה בצילום המלא">
         <span class="meta-tiles">
@@ -566,8 +569,8 @@ footer{text-align:center; padding:var(--sp-6); font-size:12px; color:var(--ink-s
         <h3 class="case-name">תחום: קייטרינג לאירועים קטנים</h3>
         <p class="case-line"><b>מטרה:</b> יותר פניות, ולחסוך זמן ואנרגיה על שיווק אורגני.</p>
         <p class="case-line"><b>תוצאה:</b> מ־2 עד 3 פניות מהאורגני לתנועה יפה של פניות מהקמפיין כבר בשבוע הראשון.</p>
-        <div class="kpis"><div class="kpi"><b>87</b><span>פניות בחודש בממוצע</span></div><div class="kpi"><b>₪14.11</b><span>עלות ממוצעת לפנייה</span></div></div>
-        <p class="case-meta">מבוסס על תקופה של 3 חודשים (1.5.26 עד 31.7.26)</p>
+        <div class="kpis"><div class="kpi"><b>261</b><span>סה״כ לידים ב-3&nbsp;חודשים</span></div><div class="kpi"><b>87</b><span>ממוצע לידים בחודש</span></div><div class="kpi"><b>₪14.11</b><span>ממוצע מחיר לליד</span></div></div>
+        <p class="case-meta">תקופה: 1.5.26 עד 31.7.26</p>
       </div>
       <button type="button" class="meta-preview" data-lb="case-yuval.jpg" data-full="images/case-yuval.jpg" data-alt="תוצאות קמפיין בתחום קייטרינג לאירועים קטנים" aria-label="לצפייה בצילום המלא">
         <span class="meta-tiles">
